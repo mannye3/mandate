@@ -1366,6 +1366,7 @@
         $mandate_deleted_docs = $this->accountModel->getMandateDeletedFiles($mandate_code); 
         $mandate_info = $this->accountModel->getInfoMandateByCode($mandate_code);
         $mandate_accounts = $this->accountModel->getAccountMandateByCode($mandate_code);
+       
         $mandate_accounts_payment_archive = $this->accountModel->getAccountMandate_payment_archiveByCode($mandate_code);
         $mandate_accounts23 = $this->accountModel->getAccountMandateByCode23($mandate_code);
         $mandate_traders = $this->accountModel->getTraderMandateByCode($mandate_code);
@@ -1428,7 +1429,7 @@
          $load_roles = $this->accountModel->getManagerRoles();
          $load_cat = $this->accountModel->getCatList();
 
-          $sleep =  $this->accountModel->getresults();
+  
 
          
 
@@ -1472,7 +1473,7 @@
             
                  'load_roles' => $load_roles,
                    'load_cat' => $load_cat,
-                   'sleep' => $sleep
+                 
                  
 
           ];
@@ -2682,6 +2683,7 @@ public function users(){
                    'mandate_code' => trim($_POST['mandate_code']),
                     'discount' => trim($_POST['discount']),
                      
+                     
                             
                  ];
 
@@ -2816,6 +2818,9 @@ public function users(){
 
                     if ($discount == 1) {
 
+                      $new_amount =  0.05 * $amount;  
+                       $discount_amount = $amount - $new_amount; 
+
 
 
                       $allamount = $this->accountModel->TotalCart($mandate_code); 
@@ -2823,7 +2828,7 @@ public function users(){
 
                         $allcredit =  $this->accountModel->SelectCredit($mandate_code);
 
-                        $sum_cart = $allamount->total_cart +  $amount; 
+                        $sum_cart = $allamount->total_cart +  $discount_amount; 
 
                         $sum_credit = $allcredit->amount;
 
@@ -2840,17 +2845,16 @@ public function users(){
                           die();
                          }
 
-                       $new_amount =  0.05 * $amount;
+                      $new_amount =  0.05 * $amount; 
                        $discount_amount = $amount - $new_amount;
                    
-                       $this->accountModel->AddMandateCartDis($fee_title,$fee_code,$amount,$discount,$mandate_code,$tran_code,$issued_date,$issued_year);
+                       $this->accountModel->AddMandateCartDis($fee_title,$fee_code,$amount,$discount_amount,$discount,$mandate_code,$tran_code,$issued_date,$issued_year,$due_date);
 
                        if($renewal_status == 1) :
                          $this->accountModel->UpdateCartTotalDisDue($tran_code,$discount_amount,$due_date);
                         else :
                           $this->accountModel->UpdateCartTotalDisNoDue($tran_code,$amount);
                         endif;
-
 
                         $data = [
 
@@ -2889,13 +2893,17 @@ public function users(){
                      if ($discount == 2) {
 
 
+                      $new_amount =  0.1 * $amount;  
+                       $discount_amount = $amount - $new_amount; 
+
+
 
                       $allamount = $this->accountModel->TotalCart($mandate_code); 
                       
 
                         $allcredit =  $this->accountModel->SelectCredit($mandate_code);
 
-                        $sum_cart = $allamount->total_cart +  $amount; 
+                        $sum_cart = $allamount->total_cart +  $discount_amount; 
 
                         $sum_credit = $allcredit->amount;
 
@@ -2920,7 +2928,7 @@ public function users(){
                        $new_amount =  0.1 * $amount; 
                        $discount_amount = $amount - $new_amount;
                    
-                       $this->accountModel->AddMandateCartDis($fee_title,$fee_code,$amount,$discount,$mandate_code,$tran_code,$issued_date,$issued_year,$due_date);
+                       $this->accountModel->AddMandateCartDis($fee_title,$fee_code,$amount,$discount_amount,$discount,$mandate_code,$tran_code,$issued_date,$issued_year,$due_date);
 
                        if($renewal_status == 1) :
                          $this->accountModel->UpdateCartTotalDisDue($tran_code,$discount_amount,$due_date);
@@ -4133,71 +4141,131 @@ foreach ($user_data as $user) {
 
 
 
-                     public function add_test(){
-     
+                  
+
+
+
+
+
+                    public function add_credit_outstanding(){
+
+        $tran_code= rand(100000,999999);
            if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // Sanitize POST array       
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
           
-             $data = [
+            
+                  $data = [
 
               
-              'message' => trim($_POST['message']),
-              
-                        
+                  'name' => $_SESSION['name'],
+                    'email' => $_SESSION['email'],
+                    'department' => $_SESSION['department'],
+                    'role' => $_SESSION['role'],
+                 
+                    'fee_code' => trim($_POST['fee_code']),
+                    'fee_title' => trim($_POST['fee_title']),
+                      'amount' => trim($_POST['amount']),
+                      'credit_note' => trim($_POST['credit_note']),
+                   'issued_date' => trim($_POST['issued_date']), 
+                   'mandate_code' => trim($_POST['mandate_code']),
+                  
+                     
+                            
                  ];
 
-                  
-                     $this->accountModel->add_test_me($data);
+       
+                  $mandate_code = $data['mandate_code'];
+                  $fee_code = $data['fee_code'];
+                  $fee_title = $data['fee_title'];
+                  $amount = $data['amount'];
+                  $credit_note = $data['credit_note'];
+                  $issued_date = $data['issued_date'];
 
-                     $sleep =  $this->accountModel->getresults($data);
-                  
+
+
+
+
+
+
+
+
+                   if ($fee_code == "OUSTANDING") {
+
+
+
+                      $allamount = $this->accountModel->TotalCart($mandate_code); 
+                      
+
+                        $allcredit =  $this->accountModel->SelectCredit($mandate_code);
+
+                        $sum_cart = $allamount->total_cart +  $amount; 
+
+                        $sum_credit = $allcredit->amount;
+
+                        
+                     
+
+
+                         
+
+                         if ($sum_cart > $sum_credit) {
+                          error_flash('alert_message', 'Error Adding Payment - Insufficient Balance');
                       header('Location: ' . $_SERVER["HTTP_REFERER"] );
                       exit;
+                     
+                          die();
+                         }
 
 
-                        
-                           
 
-                      } 
+                         
 
 
-                    }
+                      $this->accountModel->AddMandateoutstanding($fee_title,$fee_code,$amount,$mandate_code,$tran_code,$issued_date,$credit_note);
 
-
-           //          public function add_test(){
-     
-           // if($_SERVER['REQUEST_METHOD'] == 'POST'){
-           //  // Sanitize POST array       
-           //  $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-          
-           //   $data = [
+                        $this->accountModel->UpdateCartTotalNoDueNoDies($tran_code,$amount);
 
               
-           //    'mandate_code' => trim($_POST['mandate_code']),
-           //    'fee_code' => trim($_POST['fee_code']),
-           //     'issued_year' => trim($_POST['issued_year']), 
-           //     'receipt_date ' => trim($_POST['receipt_date ']),
-           //    'receipt_code' => trim($_POST['receipt_code']),
-             
-                        
-           //       ];
 
-                  
-           //           $this->accountModel->add_test_me($data);
-           //         flash('alert_message', 'Added');
-           //            header('Location: ' . $_SERVER["HTTP_REFERER"] );
-           //            exit;
+                         $data = [
+
+                            
+                            'name' => $_SESSION['name'],
+                              'email' => $_SESSION['email'],
+                              'department' => $_SESSION['department'],
+                              'role' => $_SESSION['role'],
 
 
-                        
+                              'mandate_code' => $mandate_code,
                            
+                                  
+                               ];
 
-           //            } 
+                         $user_log = ' '.$fee_title.' payment Added To '.$mandate_code.' Account , By '.$data['name'].' ';
+                         $activities = ''.$fee_title.' payment Added To Account,  By '.$data['name'].' ';
+                         $status = '1';
+                  
 
+                          $this->accountModel->AddMandateActivities($data,$activities);
+                          $this->accountModel->AddLog($data,$user_log,$status);
 
-           //          }
+                          
 
+                      
+
+                       flash('alert_message', 'FEE Added');
+                      header('Location: ' . $_SERVER["HTTP_REFERER"] );
+                      exit;
+                     
+                   }
+
+         
+
+                 }
+
+               
+                    }
 
 
                      public function demo_page()

@@ -37,7 +37,13 @@
                                                         </div>
                                                        <form action="<?php echo URLROOT; ?>/accounts/add_credit_process" method="post">
                                                              <div class="form-group">
-                                                                    <label class="form-label" for="phone-no">Fee Ttitle</label>
+
+                                                                  <!-- <a href="#change-status" data-toggle="modal"  data-toggle="dropdown">  <p class="form-label" style="margin: 0px 0px 0px 230px ;" >Enter Ouststanding payment</p> </a> -->
+                                                                   
+
+                                                                 
+
+                                                                     <label class="form-label" for="phone-no">Fee Ttitle</label>
 
                                                                     <select name="fee_code" class="form-control form-control-lg">
                                                                          <?php foreach($data['allfees'] as $allfee) : ?>
@@ -167,6 +173,92 @@
 
 
 
+                        <div class="modal fade" tabindex="-1" role="dialog" id="change-status">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                            <div class="modal-body modal-body-lg">
+                                <h5 class="title">Add Outstanding Credit</h5>
+                                <div class="tab-content">
+                            <form method="post" action="<?php echo URLROOT; ?>/accounts/add_credit_outstanding" >
+                                    <div class="tab-pane active" id="personal">
+                            <div class="row gy-4">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="full-name">Fee Title</label>
+                                        <input value="OUTSTANDING CREDIT" class="form-control required" type="text" name="fee_title">
+                                      
+                                    </div>
+                                </div> 
+
+
+
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="full-name">Amount</label>
+                                        <input class="form-control required" type="number" name="amount">
+                                      
+                                    </div>
+                                </div> 
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="full-name">Date</label>
+                                        <input class="form-control required" type="date" name="issued_date">
+                                      
+                                    </div>
+                                </div> 
+
+
+
+                                 
+                                 <div class="col-md-12">
+                                      <div class="form-group">
+                                        <label class="form-label" for="fw-nationality">Note</label>
+                                          <div class="form-control-wrap">
+                                                                    
+                                    <textarea required="" name="credit_note" class="form-control required"></textarea>
+                                                                        
+                                                                    
+                                       </div>
+                                      </div>
+                                        </div><!-- .col -->
+
+
+                                <input type="" value="<?php echo $data['mandate_info']->mandate_code; ?>" name="mandate_code" >
+
+                                   <input type="" value="OUSTANDING" name="fee_code" >
+                               
+
+                               
+
+
+
+                                <div class="col-12">
+                                    <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                        <li>
+                                            <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+                                            
+                                        </li>
+                                        <li>
+                                            <a href="#" data-dismiss="modal" class="link link-light">Cancel</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
                 <style>
 table {
@@ -185,5 +277,8 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 </style>
+
+
+
 
 

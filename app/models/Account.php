@@ -601,6 +601,10 @@ public function getCatList(){
 
 
 
+    
+
+
+
 
 
 
@@ -1342,15 +1346,52 @@ public function getCatList(){
 
 
 
-//Add New Fee
-      public function AddMandateCartDis($fee_title,$fee_code,$amount,$discount,$mandate_code,$tran_code,$issued_date,$issued_year){
+
+  //Add New Fee
+      public function AddMandateoutstanding($fee_title,$fee_code,$amount,$mandate_code,$tran_code,$issued_date,$credit_note){
       
-      $this->db->query('INSERT INTO mandate_cart (fee_title, fee_code, amount, discount, mandate_code, tran_code, issued_date, issued_year) VALUES(:fee_title, :fee_code, :amount, :discount, :mandate_code, :tran_code, :issued_date, :issued_year)');
+      $this->db->query('INSERT INTO mandate_cart (fee_title, fee_code, amount, credit_note,  mandate_code, tran_code, issued_date) VALUES(:fee_title, :fee_code, :amount, :credit_note, :mandate_code, :tran_code, :issued_date)');
+    
+      // Bind Values      
+      $this->db->bind(':fee_title', $fee_title);
+      $this->db->bind(':fee_code', $fee_code);
+      $this->db->bind(':credit_note', $credit_note);
+      $this->db->bind(':amount', $amount);
+      $this->db->bind(':mandate_code', $mandate_code);
+      $this->db->bind(':tran_code', $tran_code);
+      $this->db->bind(':issued_date', $issued_date);
+     
+      
+
+
+      
+     
+    
+
+      // Execute
+      if($this->db->execute()){
+        return true;
+      }
+      else{
+        return false;
+      }           
+            
+    }
+
+
+
+
+
+//Add New Fee
+      public function AddMandateCartDis($fee_title,$fee_code,$amount,$discount_amount,$discount,$mandate_code,$tran_code,$issued_date,$issued_year,$due_date){
+      
+      $this->db->query('INSERT INTO mandate_cart (fee_title, fee_code, amount, discount_amount, discount, mandate_code, tran_code, issued_date, issued_year) VALUES(:fee_title, :fee_code, :amount, :discount_amount,  :discount, :mandate_code, :tran_code, :issued_date, :issued_year)');
     
       // Bind Values      
       $this->db->bind(':fee_title', $fee_title);
       $this->db->bind(':fee_code', $fee_code);
       $this->db->bind(':amount', $amount);
+      $this->db->bind(':discount_amount', $discount_amount);
       $this->db->bind(':discount', $discount);
       $this->db->bind(':mandate_code', $mandate_code);
        $this->db->bind(':tran_code', $tran_code);
@@ -1623,7 +1664,7 @@ public function getMandateByCode($mandate_code){
 
     public function getAccountMandateByCode($mandate_code){
       $this->db->query('SELECT mandates_fees.fee_title, mandates_fees.amount, mandates_fees.renewal_status, mandates_fees.fee_code,
-       mandate_payment.mandate_code, mandate_payment.issued_date, mandate_payment.due_date,mandate_payment.issued_year, mandate_payment.created_at
+       mandate_payment.mandate_code, mandate_payment.issued_date, mandate_payment.due_date,mandate_payment.issued_year, mandate_payment.discount, mandate_payment.discount_amount, mandate_payment.created_at
        FROM `mandates_fees` 
         INNER JOIN mandate_payment ON mandates_fees.fee_code = mandate_payment.fee_code
           WHERE mandate_payment.mandate_code =:mandate_code');
@@ -3051,8 +3092,8 @@ public function getPaymentRecipt($mandate_code,$select_year){
 
 
     public function getSubmitCart($mandate_code){
-      $this->db->query('INSERT INTO mandate_payment (`fee_title`, `fee_code`, `amount`, `discount`, `total_cart_amount`, `mandate_code`, `tran_code`, `issued_date`, `issued_year`, `due_date`) 
-        SELECT fee_title,fee_code,amount,discount,total_cart_amount,mandate_code,tran_code, issued_date, issued_year, due_date FROM mandate_cart  WHERE mandate_code = :mandate_code ');
+      $this->db->query('INSERT INTO mandate_payment (`fee_title`, `fee_code`, `amount`, `discount_amount`, `discount`, `total_cart_amount`, `mandate_code`, `tran_code`, `issued_date`, `issued_year`, `due_date`) 
+        SELECT fee_title,fee_code,amount,discount_amount,discount,total_cart_amount,mandate_code,tran_code, issued_date, issued_year, due_date FROM mandate_cart  WHERE mandate_code = :mandate_code ');
 
 
                  

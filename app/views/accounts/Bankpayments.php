@@ -36,7 +36,7 @@
                                                       
                                                         <th class="nk-tb-col tb-col-md"><span class="sub-text">AMOUNT</span></th>
                                                         <th class="nk-tb-col tb-col-mb"><span class="sub-text">ISSUE DATE</span></th>
-                                                        <th class="nk-tb-col tb-col-md"><span class="sub-text">DUE DATE</span></th>
+                                                        <th class="nk-tb-col tb-col-md"><span class="sub-text">CREATED AT</span></th>
 
                                 
                                                       

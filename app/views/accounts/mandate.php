@@ -1,5 +1,5 @@
  <div class="nk-content nk-content-fluid">
-  <div class="container" style="max-width:800px;margin:0 auto;margin-top:50px;">  
+  <!-- <div class="container" style="max-width:800px;margin:0 auto;margin-top:50px;">  
             <div>
                 <h2 style="margin-bottom:50px;">Live Demo: Insert and load records using Jquery,Ajax and Php without refreshing page</h2>
                 <div class="form-group">
@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="display-content">
-                    <div class="message-wrap"><?php echo $data['sleep']->message; ?></div>
+                    <div class="message-wrap"><?php echo $data['sleep']->message; ?></div>';
                    
                 </div>
             </div>
@@ -48,7 +48,7 @@
         </script>
 
 
-
+ -->
 
 
 
@@ -229,10 +229,7 @@
                                                         <?php endif; ?>
 
 
-
-
-
-
+                                                        
                                                         <?php if ($data['mandate_info']->category  == 'BROKER') : ?>
                                                           <p>FIRM FEES FOR <?php  error_reporting(0); echo date("Y"); ?></p> 
 
@@ -329,6 +326,178 @@
 
 
 
+
+
+
+                                                       <!--  <?php if ($data['mandate_info']->category  == 'BROKER') : ?>
+                                                          <p>FIRM FEES FOR <?php  error_reporting(0); echo date("Y"); ?></p> 
+
+                                                        <table class="table">
+                                                            <thead class="thead-light">
+                                                           <tr>
+                                                            <th>FEES</th>
+                                                            <th>AMOUNT</th>
+                                                            <th>AMOUNT PAID</th>
+                                                            <th>STATUS</th>
+                                                            <th>CURRENT PAYMENT</th>
+                                                             <th>CURRENT CREDIT</th>
+                                                            
+                                                          </tr>
+                                                          <tr>
+                                                            <td>ANNUAL FEE BROKER   </td>
+                                                            <td>₦<?php echo number_format($data['T_Fee4']->amount) ?> </td>
+                                                              <td>₦
+
+                                                                 <?php  if($data['cyf4']->discount_amount == "" ) : ?>
+                                                                        <?php echo number_format($data['cyf4']->amount) ?>
+                                                                     <?php endif ?>
+
+                                                                        <?php  if($data['cyf4']->discount_amount !== "" ) : ?>
+                                                                         <?php echo number_format($data['cyf4']->discount_amount) ?>
+
+                                                                     <?php endif ?> 
+
+                                                                     <?php  if($data['cyf4']->discount == 1 ) : ?>
+                                                                        (5%)
+                                                                         
+                                                                     <?php endif ?> 
+
+
+                                                                     <?php  if($data['cyf4']->discount == 2 ) : ?>
+                                                                        (10%)
+                                                                         
+                                                                     <?php endif ?> 
+
+
+                                                                </td>
+                                                            <td><?php if ($data['cyf4']->fee_code == "") {
+                                                               echo '<span class="tb-status text-warning">Not Paid</span></td>';
+                                                            } 
+
+                                                            if ($data['cyf4']->fee_code == !"") {
+                                                               echo '<span class="tb-status text-success">Paid</span></td>';
+                                                            }
+
+
+                                                            ?>
+                                                        </td>
+                                                        <td></td>
+                                                          <td></td>
+                                                                
+                                                          </tr>
+
+                                                          <tr>
+                                                            <td>ANNUAL FEE PLATFORM MAINTENANCE </td>
+                                                            <td>₦<?php echo number_format( $data['T_Fee2']->amount) ?>
+                                                                </td>
+                                                                <td>₦
+
+                                                                 <?php  if($data['cyf2']->discount_amount == "" ) : ?>
+                                                                        <?php echo number_format($data['cyf2']->amount) ?>
+                                                                     <?php endif ?>
+
+                                                                        <?php  if($data['cyf2']->discount_amount !== "" ) : ?>
+                                                                         <?php echo number_format($data['cyf2']->discount_amount) ?>
+
+                                                                     <?php endif ?> 
+
+                                                                     <?php  if($data['cyf2']->discount == 1 ) : ?>
+                                                                        (5%)
+                                                                         
+                                                                     <?php endif ?> 
+
+
+                                                                     <?php  if($data['cyf2']->discount == 2 ) : ?>
+                                                                        (10%)
+                                                                         
+                                                                     <?php endif ?> 
+
+
+                                                                </td>
+                                                             <td><?php if ($data['cyf2']->fee_code == "") {
+                                                               echo '<span class="tb-status text-warning">Not Paid</span></td>';
+                                                            } 
+
+                                                            if ($data['cyf2']->fee_code == !"") {
+                                                               echo '<span class="tb-status text-success">Paid</span></td>';
+                                                            }
+
+
+                                                            ?>
+                                                        </td>
+                                                        <td></td>
+                                                         <td></td>
+                                                          </tr>
+
+
+
+                                                            <tr>
+                                                            <td>ANNUAL FEE AUTHORISED TRADER  (<?php echo $alltraders = $data['ALL_traders']->TotalTraders; ?>)</td>
+
+                                                            <td>₦<?php  $trader_amount = $data['T_Fee3']->amount;
+                                                            $traderfees = $alltraders * $trader_amount; 
+                                                            echo   number_format($traderfees);
+                                                            ?></td>
+                                                             <td>₦
+
+                                                                 <?php  if($data['cyf2']->discount_amount == "" ) : ?>
+                                                                        <?php echo number_format($data['cyf2']->amount) ?>
+                                                                     <?php endif ?>
+
+                                                                        <?php  if($data['cyf2']->discount_amount !== "" ) : ?>
+                                                                         <?php echo number_format($data['cyf2']->discount_amount) ?>
+
+                                                                     <?php endif ?> 
+
+                                                                     <?php  if($data['cyf2']->discount == 1 ) : ?>
+                                                                        (5%)
+                                                                         
+                                                                     <?php endif ?> 
+
+
+                                                                     <?php  if($data['cyf2']->discount == 2 ) : ?>
+                                                                        (10%)
+                                                                         
+                                                                     <?php endif ?> 
+
+
+                                                                </td>
+                                                            <td><span class="tb-status text-success"> (<?php if ($data['T_traderPaid']->TotalTraderPaid == "") {
+                                                                   echo '0';
+                                                                } 
+
+                                                                    if ($data['T_traderPaid']->TotalTraderPaid == !"") {
+                                                                   echo $data['T_traderPaid']->TotalTraderPaid;
+                                                                } 
+                                                                 ?>)</span> </td>
+                                                                 <td></td>
+                                                                  <td></td>
+                                                          </tr>
+
+                                                          <tr>
+                                                              <td><b>TOTAL DUE</b></td>
+                                                              <td><b style="color: red;">₦<?php  $totaldue = $data['T_Fee4']->amount + $data['T_Fee2']->amount + $traderfees;
+                                                               echo   number_format($totaldue) ; ?></b></td>
+                                                              <td></td>
+                                                              <td><b style="color: green;">₦<?php $current_payment =  $data['toalf4']->TotalBAF + $data['toalf2']->TotalMadatePM + $data['toalf3']->TotalTF;
+                                                                echo   number_format($current_payment) ;  ?></b></td>
+
+                                                                   <td><b style="color: green;">N<?php  
+                                                                   echo number_format($data['allaccamount_credit']->amount);
+                                                                     ?></b></td>
+
+
+
+
+                                                          </tr>
+
+                                                          
+                                                        </table>
+
+                                                        <?php endif; ?>
+
+
+ -->
 
 
                                         
@@ -1100,6 +1269,7 @@
                                                         </th>
                                                         <th class="nk-tb-col"><span class="sub-text">BILL FOR</span></th>
                                                         <th class="nk-tb-col tb-col-md"><span class="sub-text">AMOUNT</span></th>
+                                                         <th class="nk-tb-col tb-col-md"><span class="sub-text">DISCOUNT</span></th>
                                                         <th class="nk-tb-col tb-col-mb"><span class="sub-text">ISSUE DATE</span></th>
                                                         <th class="nk-tb-col tb-col-md"><span class="sub-text">DUE DATE</span></th>
 
@@ -1132,6 +1302,22 @@
                                                          <td class="nk-tb-col tb-col-mb" data-order="35040.34">
                                                             <span class="tb-amount">₦<?php echo number_format($mandate_account->amount); ?></span>
                                                         </td>
+
+                                                         <td class="nk-tb-col tb-col-mb" data-order="35040.34">
+                                                            <span class="tb-amount">₦<?php echo number_format($mandate_account->discount_amount); ?>
+                                                                  <?php  if($mandate_account->discount == 2 ) : ?>
+                                                                          (10%)
+                                                                     <?php endif ?>
+
+                                                                       <?php  if($mandate_account->discount == 1 ) : ?>
+                                                                          (5%)
+                                                                     <?php endif ?>
+
+                                                            </span>
+                                                        </td>
+
+
+                                                       
                                                         <td class="nk-tb-col tb-col-mb" data-order="35040.34">
                                                             <span class="tb-amount"><?php echo $mandate_account->issued_year; ?></span>
                                                         </td>
