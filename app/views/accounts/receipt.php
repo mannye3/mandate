@@ -53,9 +53,9 @@
  </div>
 
     <div class="col-sm-6 text-sm-right"> 
-      <strong>Receipt  No:</strong> 16835
+      <strong>Receipt  No:</strong> <?php echo $_SESSION['receipt_number'];  ?>
       <br>
-      <strong>Date:</strong> <?php echo  date("Y/m/d"); ?>
+      <strong>Date:</strong> <?php echo  $_SESSION['receipt_date']; ?>
 
     </div>
       

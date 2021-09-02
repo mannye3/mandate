@@ -1,4 +1,9 @@
  <div class="nk-content nk-content-fluid">
+                   
+
+
+
+
                     <div class="container-xl wide-lg">
                         <div class="nk-content-body">
                             <div class="components-preview wide-md mx-auto">
@@ -23,8 +28,7 @@
                                         <div class="card-inner">
                                               <?php flash('alert_message'); ?>
                                           
-                                               
-                                        
+
                                                 <div class="card card-bordered">
                                         <div class="nk-kycfm">
                                            
@@ -37,21 +41,21 @@
                                                         </div>
                                                        <form action="<?php echo URLROOT; ?>/accounts/add_credit_process" method="post">
                                                              <div class="form-group">
-
                                                                   <!-- <a href="#change-status" data-toggle="modal"  data-toggle="dropdown">  <p class="form-label" style="margin: 0px 0px 0px 230px ;" >Enter Ouststanding payment</p> </a> -->
                                                                    
-
-                                                                 
 
                                                                      <label class="form-label" for="phone-no">Fee Ttitle</label>
 
                                                                     <select name="fee_code" class="form-control form-control-lg">
                                                                          <?php foreach($data['allfees'] as $allfee) : ?>
-                                                                            <option value="<?php echo $allfee->fee_code; ?>"><?php echo $allfee->fee_title; ?></option>
+                                                                            <option data-toggle="modal" data-target="#<?php echo $allfee->fee_code; ?>" value="<?php echo $allfee->fee_code; ?>"><?php echo $allfee->fee_title; ?></option>
                                                                             <?php endforeach; ?>
 
                                                                        
                                                                     </select>
+
+                                                                    
+
 
                                                                      <input type="hidden" value="<?php echo $data['mandate_info']->mandate_code; ?>" name="mandate_code">
                                                                    
@@ -173,31 +177,55 @@
 
 
 
-                        <div class="modal fade" tabindex="-1" role="dialog" id="change-status">
+
+
+                        <div class="modal" tabindex="-1" role="dialog" id="AFAT">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                             <div class="modal-body modal-body-lg">
-                                <h5 class="title">Add Outstanding Credit</h5>
+                                <h5 class="title">Add Trader Fee</h5>
                                 <div class="tab-content">
-                            <form method="post" action="<?php echo URLROOT; ?>/accounts/add_credit_outstanding" >
+                            <form method="post" action="<?php echo URLROOT; ?>/accounts/add_credit_process_trader" >
                                     <div class="tab-pane active" id="personal">
                             <div class="row gy-4">
-                                <div class="col-md-12">
+                               <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-label" for="full-name">Fee Title</label>
-                                        <input value="OUTSTANDING CREDIT" class="form-control required" type="text" name="fee_title">
+                                        <input class="form-control required" readonly="" value="ANNUAL FEE AUTHORISED TRADER" type="text" name="fee_title">
                                       
                                     </div>
                                 </div> 
 
-
-
                                  <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label" for="full-name">Amount</label>
-                                        <input class="form-control required" type="number" name="amount">
-                                      
+                                      <table id="myTable">
+                                    <thead>
+                                        Product name
+                                   
+                                   
+                                    <tbody>
+                                    
+                                    <tr><td>
+                                        <div class="form-group">
+                                        <select value="" class="qty form-control" name="qty">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                </select>
+                                </div>
+                            </td><td align="right">N<span id="total" class="total">TOTAL</span> </td>
+
+                                <input type="hidden" value="20000" class="price">
+                                    
+                                </tbody></table>
                                     </div>
                                 </div> 
 
@@ -210,25 +238,26 @@
                                     </div>
                                 </div> 
 
-
+                                  
+                                                            <div class="form-group">
+                                                                <label class="form-label">Apply Discount</label>
+                                                             <div class="form-group">
 
                                  
-                                 <div class="col-md-12">
-                                      <div class="form-group">
-                                        <label class="form-label" for="fw-nationality">Note</label>
-                                          <div class="form-control-wrap">
-                                                                    
-                                    <textarea required="" name="credit_note" class="form-control required"></textarea>
-                                                                        
-                                                                    
-                                       </div>
-                                      </div>
-                                        </div><!-- .col -->
+                                  <br>
+                                <input type="radio" id="male" name="discount" value="1">
+                                <label for="male">5%</label><br>
+                                <input type="radio" id="female" name="discount" value="2">
+                                <label for="female">10%</label><br>
+                                
+                             
+                                    </div>
+                                                            </div>
 
 
-                                <input type="" value="<?php echo $data['mandate_info']->mandate_code; ?>" name="mandate_code" >
+                                <input type="hidden" value="<?php echo $data['mandate_info']->mandate_code; ?>" name="mandate_code" >
 
-                                   <input type="" value="OUSTANDING" name="fee_code" >
+                                   <input type="hidden" value="AFAT" name="fee_code" >
                                
 
                                
@@ -260,7 +289,9 @@
 
 
 
-                <style>
+
+
+<style>
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -276,9 +307,36 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+
 </style>
 
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 
 
+<script type="text/javascript">
+    $(document).ready(function(){
+
+    update_amounts();
+    $('.qty').change(function() {
+        update_amounts();
+    });
+});
+
+
+function update_amounts()
+{
+    var sum = 0.0;
+    $('#myTable > tbody  > tr').each(function() {
+        var qty = $(this).find('option:selected').val();
+        var price = $(this).find('.price').val();
+        var amount = (qty*price)
+        sum+=amount;
+        $(this).find('.amount').text(''+amount);
+    });
+    //just update the total to sum  
+    $('.total').text(sum);
+}
+</script>

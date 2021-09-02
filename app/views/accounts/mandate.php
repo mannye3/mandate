@@ -230,7 +230,7 @@
 
 
                                                         
-                                                        <?php if ($data['mandate_info']->category  == 'BROKER') : ?>
+                                                       <!--  <?php if ($data['mandate_info']->category  == 'BROKER') : ?>
                                                           <p>FIRM FEES FOR <?php  error_reporting(0); echo date("Y"); ?></p> 
 
                                                         <table class="table">
@@ -322,14 +322,14 @@
                                                           
                                                         </table>
 
-                                                        <?php endif; ?>
+                                                        <?php endif; ?> -->
 
 
 
 
 
 
-                                                       <!--  <?php if ($data['mandate_info']->category  == 'BROKER') : ?>
+                                                         <?php if ($data['mandate_info']->category  == 'BROKER') : ?>
                                                           <p>FIRM FEES FOR <?php  error_reporting(0); echo date("Y"); ?></p> 
 
                                                         <table class="table">
@@ -439,26 +439,28 @@
                                                             echo   number_format($traderfees);
                                                             ?></td>
                                                              <td>₦
-
-                                                                 <?php  if($data['cyf2']->discount_amount == "" ) : ?>
-                                                                        <?php echo number_format($data['cyf2']->amount) ?>
+                                                                  <?php  if($data['toalf3_firm']->discount_amount == "" ) : ?>
+                                                                        <?php echo number_format($data['toalf3_firm']->amount) ?>
                                                                      <?php endif ?>
 
-                                                                        <?php  if($data['cyf2']->discount_amount !== "" ) : ?>
-                                                                         <?php echo number_format($data['cyf2']->discount_amount) ?>
+                                                                        <?php  if($data['toalf3_firm']->discount_amount !== "" ) : ?>
+                                                                         <?php echo number_format($data['toalf3_firm']->discount_amount) ?>
 
                                                                      <?php endif ?> 
 
-                                                                     <?php  if($data['cyf2']->discount == 1 ) : ?>
+                                                                     <?php  if($data['toalf3_firm']->discount == 1 ) : ?>
                                                                         (5%)
                                                                          
                                                                      <?php endif ?> 
 
 
-                                                                     <?php  if($data['cyf2']->discount == 2 ) : ?>
+                                                                     <?php  if($data['toalf3_firm']->discount == 2 ) : ?>
                                                                         (10%)
                                                                          
                                                                      <?php endif ?> 
+
+
+                                                                  
 
 
                                                                 </td>
@@ -479,6 +481,7 @@
                                                               <td><b style="color: red;">₦<?php  $totaldue = $data['T_Fee4']->amount + $data['T_Fee2']->amount + $traderfees;
                                                                echo   number_format($totaldue) ; ?></b></td>
                                                               <td></td>
+                                                               <td></td>
                                                               <td><b style="color: green;">₦<?php $current_payment =  $data['toalf4']->TotalBAF + $data['toalf2']->TotalMadatePM + $data['toalf3']->TotalTF;
                                                                 echo   number_format($current_payment) ;  ?></b></td>
 
@@ -497,7 +500,7 @@
                                                         <?php endif; ?>
 
 
- -->
+ 
 
 
                                         
@@ -1294,13 +1297,13 @@
                                                             <div class="user-card"> 
                                                                 
                                                                 <div class="nk-tnx-type-text">
-                                                                <span class="tb-lead"><?php echo $mandate_account->fee_title; ?></span>
+                                                                <span class="tb-lead"><?php echo $mandate_account->fee_title; ?> <?php echo "($mandate_account->qty)"; ?></span>
                                                                
                                                             </div>
                                                             </div>
                                                         </td>
                                                          <td class="nk-tb-col tb-col-mb" data-order="35040.34">
-                                                            <span class="tb-amount">₦<?php echo number_format($mandate_account->amount); ?></span>
+                                                            <span class="tb-amount">₦<?php echo number_format($mandate_account->amount * $mandate_account->qty); ?></span>
                                                         </td>
 
                                                          <td class="nk-tb-col tb-col-mb" data-order="35040.34">

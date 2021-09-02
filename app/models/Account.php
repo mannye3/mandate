@@ -104,15 +104,15 @@
 
 
     public function TotalPaidTrader($mandate_code,$current_year,$fee_cod_c3){
-      $this->db->query('SELECT COUNT(id) AS TotalTraderPaid, issued_year AS Trader FROM mandate_payment  WHERE 
+      $this->db->query('SELECT SUM(qty) AS TotalTraderPaid, issued_year AS Trader FROM mandate_payment  WHERE 
         issued_year = :current_year AND  mandate_code = :mandate_code AND fee_code = :fee_cod_c3');
 
       $this->db->bind(':mandate_code', $mandate_code);
       $this->db->bind(':current_year', $current_year);
       $this->db->bind(':fee_cod_c3', $fee_cod_c3);
       
-
       $row = $this->db->single();
+
 
       return $row;
     }
@@ -1313,14 +1313,15 @@ public function getCatList(){
 
 
 //Add New Fee
-      public function AddMandateCartNoDis($fee_title,$fee_code,$amount,$mandate_code,$tran_code,$issued_date,$issued_year){
+      public function AddMandateCartNoDis($fee_title,$fee_code,$amount,$qty,$mandate_code,$tran_code,$issued_date,$issued_year){
       
-      $this->db->query('INSERT INTO mandate_cart (fee_title, fee_code, amount, mandate_code, tran_code, issued_date, issued_year) VALUES(:fee_title, :fee_code, :amount, :mandate_code, :tran_code, :issued_date, :issued_year)');
+      $this->db->query('INSERT INTO mandate_cart (fee_title, fee_code, amount, qty, mandate_code, tran_code, issued_date, issued_year) VALUES(:fee_title, :fee_code, :amount, :qty, :mandate_code, :tran_code, :issued_date, :issued_year)');
     
       // Bind Values      
       $this->db->bind(':fee_title', $fee_title);
       $this->db->bind(':fee_code', $fee_code);
       $this->db->bind(':amount', $amount);
+      $this->db->bind(':qty', $qty);
       $this->db->bind(':mandate_code', $mandate_code);
       $this->db->bind(':tran_code', $tran_code);
       $this->db->bind(':issued_date', $issued_date);
@@ -1383,15 +1384,16 @@ public function getCatList(){
 
 
 //Add New Fee
-      public function AddMandateCartDis($fee_title,$fee_code,$amount,$discount_amount,$discount,$mandate_code,$tran_code,$issued_date,$issued_year,$due_date){
+      public function AddMandateCartDis($fee_title,$fee_code,$amount,$discount_amount,$qty, $discount,$mandate_code,$tran_code,$issued_date,$issued_year,$due_date){
       
-      $this->db->query('INSERT INTO mandate_cart (fee_title, fee_code, amount, discount_amount, discount, mandate_code, tran_code, issued_date, issued_year) VALUES(:fee_title, :fee_code, :amount, :discount_amount,  :discount, :mandate_code, :tran_code, :issued_date, :issued_year)');
+      $this->db->query('INSERT INTO mandate_cart (fee_title, fee_code, amount, discount_amount,qty,  discount, mandate_code, tran_code, issued_date, issued_year) VALUES(:fee_title, :fee_code, :amount, :discount_amount,  :qty, :discount, :mandate_code, :tran_code, :issued_date, :issued_year)');
     
       // Bind Values      
       $this->db->bind(':fee_title', $fee_title);
       $this->db->bind(':fee_code', $fee_code);
       $this->db->bind(':amount', $amount);
       $this->db->bind(':discount_amount', $discount_amount);
+      $this->db->bind(':qty', $qty);
       $this->db->bind(':discount', $discount);
       $this->db->bind(':mandate_code', $mandate_code);
        $this->db->bind(':tran_code', $tran_code);
@@ -1612,6 +1614,21 @@ public function getMandateByCode($mandate_code){
     }
 
 
+     public function TotalTFAmountFirm($mandate_code,$fee_cod_c3,$current_year){
+      $this->db->query('SELECT * FROM mandate_payment
+      WHERE fee_code =  :fee_cod_c3 AND mandate_code = :mandate_code AND issued_year =:current_year' );
+
+      $this->db->bind(':mandate_code', $mandate_code);
+       $this->db->bind(':fee_cod_c3', $fee_cod_c3);
+       $this->db->bind(':current_year', $current_year);
+
+
+      $row = $this->db->single();
+
+      return $row;
+    }
+
+
      public function AllTotalBAFAmount($mandate_code,$fee_cod_c4,$current_year){
       $this->db->query('SELECT SUM(amount) AS TotalBAF FROM mandate_payment
       WHERE fee_code =  :fee_cod_c4 AND mandate_code = :mandate_code AND issued_year =:current_year' );
@@ -1664,7 +1681,7 @@ public function getMandateByCode($mandate_code){
 
     public function getAccountMandateByCode($mandate_code){
       $this->db->query('SELECT mandates_fees.fee_title, mandates_fees.amount, mandates_fees.renewal_status, mandates_fees.fee_code,
-       mandate_payment.mandate_code, mandate_payment.issued_date, mandate_payment.due_date,mandate_payment.issued_year, mandate_payment.discount, mandate_payment.discount_amount, mandate_payment.created_at
+       mandate_payment.mandate_code, mandate_payment.issued_date, mandate_payment.due_date,mandate_payment.issued_year, mandate_payment.discount, mandate_payment.discount_amount, mandate_payment.qty, mandate_payment.created_at
        FROM `mandates_fees` 
         INNER JOIN mandate_payment ON mandates_fees.fee_code = mandate_payment.fee_code
           WHERE mandate_payment.mandate_code =:mandate_code');
@@ -2960,28 +2977,38 @@ public function getPaymentRecipt($mandate_code,$select_year){
 
 
 
-    public function Add_reciept_records($mandate_code,$select_year){
-      // $this->db->query('INSERT INTO receipt_records (fee_title, amount , mandate_code, issued_year )
-      //  mandate_payment.mandate_code, mandate_payment.issued_date, mandate_payment.issued_year, mandate_payment.created_at
-      //  FROM `mandates_fees` 
-      //   INNER JOIN mandate_payment ON mandates_fees.fee_code = mandate_payment.fee_code
-      //     WHERE mandate_payment.mandate_code =:mandate_code AND   mandate_payment.issued_year =:select_year');
 
 
 
-         $this->db->query('INSERT INTO receipt_records (fee_title, amount , mandate_code, issued_year) SELECT fee_title, amount, mandate_code, issued_year FROM mandate_payment WHERE mandate_payment.mandate_code =:mandate_code AND   mandate_payment.issued_year =:select_year ');
 
 
-
+     //Add New Properties
+       public function Add_reciept_records($mandate_code,$select_year,$receipt_date,$receipt_number){
+      
+      $this->db->query('INSERT INTO receipt_records (mandate_code, select_year, receipt_date, receipt_number) VALUES(:mandate_code, :select_year, :receipt_date, :receipt_number)');
+    
+      // Bind Values      
+   
         $this->db->bind(':mandate_code', $mandate_code);
          $this->db->bind(':select_year', $select_year);
-         
-
+         $this->db->bind(':receipt_date', $receipt_date);
+         $this->db->bind(':receipt_number', $receipt_number);
       
-       $results = $this->db->resultSet();
 
-      return $results;
+
+     
+    
+
+      // Execute
+      if($this->db->execute()){
+        return true;
+      }
+      else{
+        return false;
+      }           
+            
     }
+
 
 
 
@@ -3092,8 +3119,8 @@ public function getPaymentRecipt($mandate_code,$select_year){
 
 
     public function getSubmitCart($mandate_code){
-      $this->db->query('INSERT INTO mandate_payment (`fee_title`, `fee_code`, `amount`, `discount_amount`, `discount`, `total_cart_amount`, `mandate_code`, `tran_code`, `issued_date`, `issued_year`, `due_date`) 
-        SELECT fee_title,fee_code,amount,discount_amount,discount,total_cart_amount,mandate_code,tran_code, issued_date, issued_year, due_date FROM mandate_cart  WHERE mandate_code = :mandate_code ');
+      $this->db->query('INSERT INTO mandate_payment (`fee_title`, `fee_code`, `amount`, `discount_amount`, `qty`, `discount`, `total_cart_amount`, `mandate_code`, `tran_code`, `issued_date`, `issued_year`, `due_date`) 
+        SELECT fee_title,fee_code,amount,discount_amount,qty,discount,total_cart_amount,mandate_code,tran_code, issued_date, issued_year, due_date FROM mandate_cart  WHERE mandate_code = :mandate_code ');
 
 
                  
@@ -3431,7 +3458,7 @@ public function getPaymentRecipt($mandate_code,$select_year){
       public function getTotalPaymentSelectYear($mandate_code,$selected_year){
       $this->db->query('SELECT
        SUM(amount) AS toltal_payment_report
-        FROM mandate_payment WHERE mandate_code = :mandate_code AND issued_year = :selected_year ');     
+        FROM mandate_payment WHERE mandate_code = :mandate_code AND issued_year = :selected_year AND due_date !="" ');     
 
 
       $this->db->bind(':mandate_code', $mandate_code);
@@ -3550,7 +3577,7 @@ public function getPaymentRecipt($mandate_code,$select_year){
     public function getTotalPaymentyear($mandate_code,$report_year){
       $this->db->query('SELECT
        SUM(amount) AS toltal_payment_report
-        FROM mandate_payment WHERE mandate_code = :mandate_code AND issued_year = :report_year  ');     
+        FROM mandate_payment WHERE mandate_code = :mandate_code AND issued_year = :report_year AND due_date !="" ');     
 
 
       $this->db->bind(':mandate_code', $mandate_code);
@@ -3680,6 +3707,23 @@ public function getPaymentRecipt($mandate_code,$select_year){
     $row = $this->db->single();
 
       return $row;
+    }
+
+
+
+
+     public function Updateqty(){
+      $this->db->query('UPDATE mandate_payment SET qty = 1 WHERE qty = "" ');
+      // Bind values
+      
+    
+    
+      // Execute
+      if($this->db->execute()){
+        return true;
+      } else {
+        return false;
+      }
     }
 
 

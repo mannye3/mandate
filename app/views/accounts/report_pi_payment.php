@@ -122,7 +122,7 @@
 
 
                                                          <td class="nk-tb-col tb-col-md">
-                                                            <?php if ($allpis->mandate_status == 'Ok') {
+                                                            <?php if ($allpis->mandate_status == 1) {
                                                                echo ' <span class="tb-status text-success">Active</span>';
                                                             } 
 
