@@ -12,13 +12,14 @@
                                             <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
-                                                  
+                                                    <?php  if ($_SESSION['role'] !== 'User') :   ?>
                                                     <li class="nk-block-tools-opt">
                                                        <a href="<?php echo URLROOT; ?>/accounts/add_issuer"><div class="drodown">
                                                             <span  class="btn btn-primary"><em class="icon ni ni-plus"></em></span>
                                                             
                                                         </div></a>
                                                     </li>
+                                                <?php endif; ?>
                                                 </ul>
                                             </div>
                                         </div><!-- .toggle-wrap -->
@@ -42,6 +43,7 @@
                                                             </div>
                                                         </th>
                                                         <th class="nk-tb-col"><span class="sub-text">Security</span></th>
+                                                        <th class="nk-tb-col"><span class="sub-text">Symbol</span></th>
                                                         <th class="nk-tb-col"><span class="sub-text">Contact</span></th>
                                                         <th class="nk-tb-col tb-col-mb"><span class="sub-text">Designation</span></th>
                                                         
@@ -65,7 +67,7 @@
                                                             <div class="user-card">
                                                                 
                                                                 <div class="user-info">
-                                                                    <a href="<?php echo URLROOT; ?>/accounts/issuer/<?php echo $allissuer->issuer_code;  ?>"><span class="tb-lead"> <?php echo substr($allissuer->security_name,0,20);  ?> <br> 
+                                                                    <a href="<?php echo URLROOT; ?>/accounts/issuer/<?php echo $allissuer->id;  ?>"><span class="tb-lead"> <?php echo substr($allissuer->security_name,0,20);  ?> <br> 
 
                                                                       
                                                                         <!-- <?php 
@@ -79,6 +81,10 @@
                                                             </div>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-mb" data-order="35040.34">
+                                                            <span class="tb-amount"><?php echo $allissuer->symbol;  ?></span></span>
+                                                        </td>
+
+                                                         <td class="nk-tb-col tb-col-mb" data-order="35040.34">
                                                             <span class="tb-amount"><?php echo $allissuer->name_of_contact;  ?></span></span>
                                                         </td>
 

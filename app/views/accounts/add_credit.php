@@ -1,5 +1,18 @@
  <div class="nk-content nk-content-fluid">
                    
+<div>
+
+    <select id="selector" onchange="yesnoCheck(this);">
+        <option value="select">__Select__</option>
+        <option value="aadhar">Aadhaar Card</option>
+        <option value="pan">Pan Card</option>
+        <option value="pass">Passport</option>
+    </select>
+    <label for="selector">Select ID Proof</label>
+</div>
+
+
+
 
 
 
@@ -46,13 +59,69 @@
 
                                                                      <label class="form-label" for="phone-no">Fee Ttitle</label>
 
+                                                                     <select name="fee_code" class="form-control form-control-lg" id="selector" onchange="yesnoCheck(this);">
+                                                                    <?php foreach($data['allfees'] as $allfee) : ?>
+                                                                            <option   id="<?php echo $allfee->fee_code; ?>" value="<?php echo $allfee->fee_code; ?>"><?php echo $allfee->fee_title; ?></option>
+                                                                            <?php endforeach; ?>
+                                                                   
+                                                                    </select>
+
+
+                                                                    <div id="adc" style="display: none;">
+                                                                                  <div class="col-md-12">
+                                                                            <br>
+                                                        <div class="form-group">
+                                                          <table id="myTable">
+                                                        <thead>
+                                                        Quantity
+                                                        <tbody>
+                                                        
+                                                        <tr><td>
+                                                            <div class="form-group">
+                                                            <select value="" class="qty form-control" name="qty">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                    </select>
+                                                    </div>
+                                                </td><td align="right">N<span id="total" class="total">TOTAL</span> </td>
+
+                                                    <input type="hidden" value="20000" class="price">
+                                                        
+                                                    </tbody></table>
+                                                        </div>
+                                                    </div> 
+                                                                    </div>
+                                                                    <br>
+                                                                    <div id="pc" style="display: none;">
+                                                                        <label for="pan">Amount</label> 
+                                                                        <input type="text" id="pan" name="pan" class="form-control form-control-lg" />
+                                                                    </div>
+                                                                    <div id="ps" style="display: none;">
+                                                                        <label for="pass">Enter Passport No.</label> 
+                                                                        <input type="text" id="pass" name="pass" /><br />
+                                                                    </div>
+
+                                                                     
+
+                                                                    <div id="admDivCheck" style="display:none;">
+                                                             
+                                                                         </div>
+                                                                        <!-- 
                                                                     <select name="fee_code" class="form-control form-control-lg">
                                                                          <?php foreach($data['allfees'] as $allfee) : ?>
                                                                             <option data-toggle="modal" data-target="#<?php echo $allfee->fee_code; ?>" value="<?php echo $allfee->fee_code; ?>"><?php echo $allfee->fee_title; ?></option>
                                                                             <?php endforeach; ?>
 
                                                                        
-                                                                    </select>
+                                                                    </select> -->
 
                                                                     
 
@@ -172,6 +241,7 @@
                             </div><!-- .components-preview -->
                         </div>
                     </div>
+
                 </div>
 
 
@@ -199,33 +269,7 @@
 
                                  <div class="col-md-12">
                                     <div class="form-group">
-                                      <table id="myTable">
-                                    <thead>
-                                        Product name
-                                   
-                                   
-                                    <tbody>
-                                    
-                                    <tr><td>
-                                        <div class="form-group">
-                                        <select value="" class="qty form-control" name="qty">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                </select>
-                                </div>
-                            </td><td align="right">N<span id="total" class="total">TOTAL</span> </td>
-
-                                <input type="hidden" value="20000" class="price">
-                                    
-                                </tbody></table>
+                                     
                                     </div>
                                 </div> 
 
@@ -338,5 +382,50 @@ function update_amounts()
     });
     //just update the total to sum  
     $('.total').text(sum);
+}
+
+function admSelectCheck(nameSelect)
+{
+    if(nameSelect){
+        admOptionValue = document.getElementById("AFAT").value;
+        if(admOptionValue == nameSelect.value){
+            document.getElementById("admDivCheck").style.display = "block";
+        }
+        else{
+            document.getElementById("admDivCheck").style.display = "none";
+        }
+    }
+    else{
+        document.getElementById("admDivCheck").style.display = "none";
+    }
+}
+
+
+function yesnoCheck(that) 
+{
+    if (that.value == "AFAT") 
+    {
+        document.getElementById("adc").style.display = "block";
+    }
+    else
+    {
+        document.getElementById("adc").style.display = "none";
+    }
+    if (that.value == "OUTSTANDING")
+    {
+        document.getElementById("pc").style.display = "block";
+    }
+    else
+    {
+        document.getElementById("pc").style.display = "none";
+    }
+    if (that.value == "pass")
+    {
+        document.getElementById("ps").style.display = "block";
+    }
+    else
+    {
+        document.getElementById("ps").style.display = "none";
+    }
 }
 </script>

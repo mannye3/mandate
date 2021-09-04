@@ -2155,14 +2155,16 @@ public function getMandateActivies($mandate_code){
 
 
 public function getAllMandateNames($mandate_code){
-      $this->db->query('SELECT  old_name FROM mandate_name_change  WHERE mandate_code = :mandate_code');
+      $this->db->query('SELECT  * FROM mandate_name_change  WHERE mandate_code = :mandate_code');
 
       $this->db->bind(':mandate_code', $mandate_code);
 
-      $row = $this->db->single();
+   
+      $results = $this->db->resultSet();
 
-      return $row;
+      return $results;
     }
+
 
 
 
@@ -3170,7 +3172,7 @@ public function getPaymentRecipt($mandate_code,$select_year){
      //Add New Mandate
       public function AddIssuer($data){
       
-      $this->db->query('INSERT INTO issuers (security_name, symbol,  name_of_contact , designation, phone, mobile, website, email, registras , issuer_code) VALUES(:security_name, :symbol, :name_of_contact, :designation, :phone, :mobile, :website,  :email, :registras, :issuer_code)');
+      $this->db->query('INSERT INTO issuers (security_name, symbol,  name_of_contact , designation, phone, mobile, website, email, registras) VALUES(:security_name, :symbol, :name_of_contact, :designation, :phone, :mobile, :website,  :email, :registras)');
     
       // Bind Values      
       $this->db->bind(':security_name', $data['security_name']);
@@ -3182,7 +3184,7 @@ public function getPaymentRecipt($mandate_code,$select_year){
       $this->db->bind(':email', $data['email']);
        $this->db->bind(':website', $data['website']);
       $this->db->bind(':registras', $data['registras']);
-      $this->db->bind(':issuer_code', $data['issuer_code']);
+     
       
       
 
@@ -3204,10 +3206,21 @@ public function getPaymentRecipt($mandate_code,$select_year){
 
 
 
-    public function getIssuerByCode($issuer_code){
-      $this->db->query('SELECT * FROM issuers WHERE issuer_code = :issuer_code');
+    public function getIssuerByCode($symbol){
+      $this->db->query('SELECT * FROM issuers WHERE symbol = :symbol');
 
-      $this->db->bind(':issuer_code', $issuer_code);
+      $this->db->bind(':symbol', $symbol);
+
+      $row = $this->db->single();
+
+      return $row;
+    }
+
+
+     public function getIssuerByID($id){
+      $this->db->query('SELECT * FROM issuers WHERE id = :id');
+
+      $this->db->bind(':id', $id);
 
       $row = $this->db->single();
 
@@ -3218,7 +3231,7 @@ public function getPaymentRecipt($mandate_code,$select_year){
 
 
     public function updateIssuer($data){
-      $this->db->query('UPDATE issuers SET security_name = :security_name, symbol = :symbol,  name_of_contact = :name_of_contact, designation = :designation, phone = :phone, mobile = :mobile, website = :website,  email = :email, registras = :registras  WHERE issuer_code = :issuer_code');
+      $this->db->query('UPDATE issuers SET security_name = :security_name, symbol = :symbol,  name_of_contact = :name_of_contact, designation = :designation, phone = :phone, mobile = :mobile, website = :website,  email = :email, registras = :registras, id = :id  WHERE id = :id');
       // Bind values
        $this->db->bind(':security_name', $data['security_name']);
       $this->db->bind(':symbol', $data['symbol']);
@@ -3229,7 +3242,8 @@ public function getPaymentRecipt($mandate_code,$select_year){
       $this->db->bind(':email', $data['email']);
        $this->db->bind(':website', $data['website']);
       $this->db->bind(':registras', $data['registras']);
-      $this->db->bind(':issuer_code', $data['issuer_code']);
+      $this->db->bind(':id', $data['id']);
+      
      
       
 

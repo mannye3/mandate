@@ -723,8 +723,18 @@
                                             <span class="data-label">Organization</span>
                                             <span class="data-value"><?php echo $data['mandate_info']->company_name; ?></span>
                                         </div>
-                                        <a href="<?php echo URLROOT; ?>/accounts/edit_mandate/<?php echo $data['mandate_info']->mandate_code; ?>">
+
+                                        
+
+                                         <?php  if ($_SESSION['role'] !== 'User') :   ?>
+
+                                            <a href="<?php echo URLROOT; ?>/accounts/edit_mandate/<?php echo $data['mandate_info']->mandate_code; ?>">
                                         <div class="data-col data-col-end"><span class="btn btn-round btn-secondary">Edit Details</span></div>  </a>
+
+                                    <?php endif;  ?>
+                                       
+                                        
+
                                     </div><!-- .data-item -->
                                     <div class="data-item">
                                         <div class="data-col">
@@ -793,6 +803,39 @@
 
 
                                   <div class="nk-data data-list">
+                                    <div class="data-head">
+                                        <h6 class="overline-title">Previous Names </h6>
+                                    </div>
+
+
+
+                                    <div class="row g-4">
+
+                                            
+                                       
+                                                    
+                                                    <div class="col-lg-6">
+
+                                                        <div class="form-group">
+                                                            
+                                                            <div class="form-control-wrap">
+                                                             <ol type="a" class="col-lg-12">
+                                            <?php  foreach($data['all_names'] as $all_names) :  ?>
+                                                <li>  <?php echo $all_names->old_name; ?></li>
+                                                <?php endforeach; ?>
+
+                                            </ol>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+
+                                                        </div>
+                                                    </div>
+
+
+                                                        <div class="nk-data data-list">
                                     <div class="data-head">
                                         <h6 class="overline-title">Other Contact Details </h6>
                                     </div>
@@ -959,13 +1002,14 @@
                                             <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                             <div class="toggle-expand-content" data-content="pageMenu" style="float: right;">
                                                 <ul class="nk-block-tools g-3">
-                                                   
+                                                       <?php  if ($_SESSION['role'] !== 'User') :   ?>
                                                     <li class="nk-block-tools-opt">
                                                         <div class="drodown">
                                                             <a href="#add-manager" data-toggle="modal" class="dropdown-toggle btn btn-icon btn-primary" data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                                                             
                                                         </div>
                                                     </li>
+                                                <?php endif ?>
                                                 </ul>
                                             </div>
                                             <br><br><br>
@@ -1200,7 +1244,7 @@
 
                             <div class="tab-pane" id="tabItem6">
                                <ul class="nk-block-tools gx-3" style="align-items: center;" >
-                                            
+                                              <?php  if ($_SESSION['role'] !== 'User') :   ?>
                                             <li class="btn-wrap"><a href="#add-payment" data-toggle="modal" class="btn btn-icon btn-xl btn-dark"><em class="icon ni ni-plus"></em></a><span class="btn-extext">Add Bank Payment</span></li>
 
                                             <?php if($data['allaccamount_credit']->amount != 0) :  ?>
@@ -1208,6 +1252,8 @@
                                             <li class="btn-wrap"><a href="<?php echo URLROOT; ?>/accounts/add_credit/<?php echo $data['mandate_info']->mandate_code; ?>"  class="btn btn-icon btn-xl btn-dark"><em class="icon ni ni-plus"></em></a><span class="btn-extext">Add Payment</span></li>
 
                                                <?php endif; ?>
+
+                                           <?php endif; ?>
 
                                              <li class="btn-wrap"><a href="#gen-receipt" data-toggle="modal" class="btn btn-icon btn-xl btn-dark"><em class="icon ni ni-plus"></em></a><span class="btn-extext"> Generate Receipt</span></li>
                                            
@@ -1222,7 +1268,7 @@
                                                                 </div>
 
 
-                                    </div><!-- .nk-block-content -->
+                                    </div>
                                     <br>
                                     <br>
                                     <br>
@@ -1497,8 +1543,9 @@
                                                 <div class="tab-pane active" id="file-grid-view">
                                                     <div class="nk-fmg-actions" style="float: right;">
                                             <ul class="nk-block-tools g-3">
-                                                
+                                                  <?php  if ($_SESSION['role'] !== 'User') :   ?>
                                                 <li><a href="<?php echo URLROOT; ?>/accounts/update_mandate_files/<?php echo $data['mandate_info']->mandate_code; ?>" class="btn btn-primary" ><em class="icon ni ni-upload-cloud"></em> <span>Upload Files</span></a></li>
+                                            <?php endif; ?>
                                             </ul>
                                         </div>
                                         <br><br>
@@ -1664,13 +1711,14 @@
                                             <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                             <div class="toggle-expand-content" data-content="pageMenu" style="float: right;">
                                                 <ul class="nk-block-tools g-3">
-                                                   
+                                                     <?php  if ($_SESSION['role'] !== 'User') :   ?>
                                                     <li class="nk-block-tools-opt">
                                                         <div class="drodown">
                                                             <a href="#add-trader" data-toggle="modal" class="dropdown-toggle btn btn-icon btn-primary" data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                                                             
                                                         </div>
                                                     </li>
+                                                <?php endif; ?>
                                                 </ul>
                                             </div>
                                             <br><br><br>
@@ -1743,7 +1791,7 @@
                                                         <td class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1">
                                                               
-
+                                                                  <?php  if ($_SESSION['role'] !== 'User') :   ?>
                                                                 <li>
                                                                     <div class="drodown">
                                                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
@@ -1764,7 +1812,8 @@
                                                                             &nbsp;Change Firm
                                                                     </button>
                                                           
-                                                                     </li>                  
+                                                                     </li>  
+                                                                     <?php endif;  ?>                
                                                                             </ul>
                                                                         </div>
                                                                     </div>

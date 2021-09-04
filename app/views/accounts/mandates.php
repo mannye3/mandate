@@ -15,9 +15,11 @@
 
                                                  <ul class="nk-block-tools g-3">
                                                     <li><a href="<?php echo URLROOT; ?>/accounts/participating_institutions_export" class="btn btn-white btn-outline-light"><em class="icon ni ni-download-cloud"></em><span>Export</span></a></li>
+                                                     <?php  if ($_SESSION['role'] !== 'User') :   ?>
                                                     <li class="nk-block-tools-opt">
                                                         <div class="drodown">
                                                             <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
+
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li><a href="<?php echo URLROOT; ?>/accounts/add_mandate" ><span>Add New</span></a></li>
@@ -26,6 +28,7 @@
                                                             </div>
                                                         </div>
                                                     </li>
+                                                <?php endif; ?>
                                                 </ul>
 
 

@@ -14,6 +14,7 @@
 
                                                 <ul class="nk-block-tools g-3">
                                                     <li><a href="<?php echo URLROOT; ?>/accounts/email_ist_export" class="btn btn-white btn-outline-light"><em class="icon ni ni-download-cloud"></em><span>Export</span></a></li>
+                                                     <?php  if ($_SESSION['role'] !== 'User') :   ?>
                                                     <li class="nk-block-tools-opt">
                                                         <div class="drodown">
                                                             <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
@@ -25,6 +26,7 @@
                                                             </div>
                                                         </div>
                                                     </li>
+                                                <?php endif;  ?>
                                                 </ul>
 
 

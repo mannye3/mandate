@@ -12,13 +12,14 @@
                                             <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
-                                                   
+                                                     <?php  if ($_SESSION['role'] !== 'User') :   ?>
                                                    <li class="nk-block-tools-opt">
                                                         <div class="drodown">
                                                             <a href="<?php echo URLROOT; ?>/accounts/add_data_request"class="btn btn-primary"><em class="icon ni ni-plus"></em></a>
                                                             
                                                         </div>
                                                     </li>
+                                                <?php endif; ?>
                                                 </ul>
                                             </div>
                                         </div><!-- .toggle-wrap -->

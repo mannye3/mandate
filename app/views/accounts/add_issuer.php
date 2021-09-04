@@ -36,7 +36,7 @@
                                                             <div class="form-group">
                                                                 <label class="form-label" for="fw-first-name">Security Name</label>
                                                                 <div class="form-control-wrap">
-                                                                    <input name="security_name" type="text" data-msg="Required" class="form-control required" id="fw-first-name"  required>
+                                                                    <input name="security_name" type="text"  class="form-control " id="fw-first-name">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -45,7 +45,7 @@
                                                             <div class="form-group">
                                                                 <label class="form-label" for="fw-first-name">Symbol</label>
                                                                 <div class="form-control-wrap">
-                                                                    <input name="symbol" type="text" data-msg="Required" class="form-control required"  required>
+                                                                    <input name="symbol" type="text"  class="form-control ">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -55,7 +55,7 @@
                                                             <div class="form-group">
                                                                 <label class="form-label" for="fw-first-name">Designation </label>
                                                                 <div class="form-control-wrap">
-                                                                    <input name="designation" type="text" data-msg="Required" class="form-control required"  required>
+                                                                    <input name="designation" type="text"  class="form-control ">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -66,7 +66,7 @@
                                                             <div class="form-group">
                                                                 <label class="form-label" for="fw-first-name">Name of contact</label>
                                                                 <div class="form-control-wrap">
-                                                                    <input name="name_of_contact" type="text" data-msg="Required" class="form-control required"  required>
+                                                                    <input name="name_of_contact" type="text"  class="form-control " >
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -79,7 +79,7 @@
                                                             <div class="form-group">
                                                                 <label class="form-label" for="fw-first-name">Phone</label>
                                                                 <div class="form-control-wrap">
-                                                                    <input name="phone" type="number" data-msg="Required" class="form-control required"  required>
+                                                                    <input name="phone" type="number"  class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -89,7 +89,7 @@
                                                             <div class="form-group">
                                                                 <label class="form-label" for="fw-first-name">Mobile</label>
                                                                 <div class="form-control-wrap">
-                                                                    <input name="mobile" type="number" data-msg="Required" class="form-control required"  required>
+                                                                    <input name="mobile" type="number"  class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -100,7 +100,7 @@
                                                             <div class="form-group">
                                                                 <label class="form-label" for="fw-first-name">Website</label>
                                                                 <div class="form-control-wrap">
-                                                                    <input name="website" type="text" data-msg="Required" class="form-control required"   required>
+                                                                    <input name="website" type="text"  class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -110,7 +110,7 @@
                                                             <div class="form-group">
                                                                 <label class="form-label" for="fw-first-name">Email</label>
                                                                 <div class="form-control-wrap">
-                                                                    <input name="email" type="email" data-msg="Required" class="form-control required"   required>
+                                                                    <input name="email" type="email"  class="form-control " >
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -121,7 +121,7 @@
                                                             <div class="form-group">
                                                                 <label class="form-label" for="fw-first-name">Registras</label>
                                                                 <div class="form-control-wrap">
-                                                                    <input name="registras" type="text" data-msg="Required" class="form-control required" id="fw-first-name" required>
+                                                                    <input name="registras" type="text"  class="form-control required" id="fw-first-name">
                                                                 </div>
                                                             </div>
                                                         </div>

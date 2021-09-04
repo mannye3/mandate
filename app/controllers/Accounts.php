@@ -1373,6 +1373,7 @@
         $mandate_managers = $this->accountModel->getManagerMandateByCode($mandate_code);
         $mandate_managers = $this->accountModel->getManagerMandateByCode($mandate_code);
         $allaccamount_credit = $this->accountModel->TotalAccountCredit($mandate_code); 
+         $all_names = $this->accountModel->getAllMandateNames($mandate_code);
          // END GET FIRM DETAILS USING MANDATE CODE 
 
          // LIST OF MADATE FROM DB
@@ -1475,7 +1476,8 @@
             
                  'load_roles' => $load_roles,
                    'load_cat' => $load_cat,
-                   'toalf3_firm' => $toalf3_firm
+                   'toalf3_firm' => $toalf3_firm,
+                   'all_names' => $all_names,
                  
                  
 
@@ -3614,9 +3616,8 @@ public function mandate_activities($mandate_code){
 
 
 
- public function add_issuer(){
-           $num = rand(1000, 9999);
-            $issuer_code = 'SD-' . $num; 
+        public function add_issuer(){
+          
      
            if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // Sanitize POST array       
@@ -3639,7 +3640,7 @@ public function mandate_activities($mandate_code){
               'website' => trim($_POST['website']),
               'email' => trim($_POST['email']),
               'registras' => trim($_POST['registras']),
-              'issuer_code' => $issuer_code,
+             
                    
                  ];
 
@@ -3698,8 +3699,8 @@ public function mandate_activities($mandate_code){
 
 
 
-         public function issuer($issuer_code){
-        $issuer_info = $this->accountModel->getIssuerByCode($issuer_code);
+         public function issuer($id){
+        $issuer_info = $this->accountModel->getIssuerByID($id);
       
             $data = [
             
@@ -3724,7 +3725,7 @@ public function mandate_activities($mandate_code){
 
 
 
-          public function edit_issuer($issuer_code)
+          public function edit_issuer($id)
           {
              if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // Sanitize POST array
@@ -3746,7 +3747,8 @@ public function mandate_activities($mandate_code){
               'website' => trim($_POST['website']),
               'email' => trim($_POST['email']),
               'registras' => trim($_POST['registras']),
-              'issuer_code' => $issuer_code,
+              'id' => trim($_POST['id']),
+            
 
                  
                     'security_name_err' => '',
@@ -3768,7 +3770,7 @@ public function mandate_activities($mandate_code){
                     // Validated
                    
                
-
+                
         
            
               // Validated

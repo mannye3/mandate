@@ -76,7 +76,7 @@
                                             <span class="data-label">Organization</span>
                                             <span class="data-value"><?php echo $data['issuer_info']->security_name; ?></span>
                                         </div>
-                                         <?php if ($_SESSION['role'] == 'Admin' || $_SESSION['role'] =='Sub_Admin') : ?>
+                                          <?php  if ($_SESSION['role'] !== 'User') :   ?>
                                         <div class="data-col data-col-end"><span class="btn btn-round btn-secondary">Edit Details</span></div>  <?php endif; ?>
                                     </div><!-- .data-item -->
                                     <div class="data-item">
@@ -254,7 +254,7 @@
                       
                     </ul><!-- .nav-tabs -->
                     <div class="tab-content">
-                        <form action="<?php echo URLROOT; ?>/accounts/edit_issuer/<?php echo $data['issuer_info']->issuer_code; ?>" method="post">
+                        <form action="<?php echo URLROOT; ?>/accounts/edit_issuer/<?php echo $data['issuer_info']->id; ?>" method="post">
                         <div class="tab-pane active" id="personal">
                             <div class="row gy-4">
                                 <div class="col-md-12">
@@ -336,7 +336,7 @@
 
                                
 
-                                 <input name="old_name"  type="hidden" class="form-control form-control-lg" value="<?php echo $data['issuer_info']->company_name; ?>">
+                                 <input name="id"  type="hidden" class="form-control form-control-lg" value="<?php echo $data['issuer_info']->id; ?>">
                               
                                 
                                 <div class="col-12">

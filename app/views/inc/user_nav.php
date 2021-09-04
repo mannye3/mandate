@@ -566,11 +566,7 @@
                                         </a>
                                             </li>
 
-                                            <li class="nk-menu-item">
-                                              <a href="<?php echo URLROOT; ?>/accounts/positions" class="nk-menu-link">     
-                                               <span class="nk-menu-text">Mangers Roles</span>
-                                        </a>
-                                            </li>
+                                         
                                            
                                            
                                         </ul><!-- .nk-menu-sub -->
