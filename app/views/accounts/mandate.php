@@ -800,7 +800,10 @@
                                         <div class="data-col data-col-end"></div>
                                     </div><!-- .data-item -->
                                 </div><!-- .nk-data -->
+                                 <?php  foreach($data['all_names'] as $all_names) :  ?>
+                                 <?php endforeach ?>
 
+                    <?php if ($all_names->mandate_code == $data['mandate_info']->mandate_code) : ?>
 
                                   <div class="nk-data data-list">
                                     <div class="data-head">
@@ -821,7 +824,7 @@
                                                             <div class="form-control-wrap">
                                                              <ol type="a" class="col-lg-12">
                                             <?php  foreach($data['all_names'] as $all_names) :  ?>
-                                                <li>  <?php echo $all_names->old_name; ?></li>
+                                               <b> <li>  <?php echo $all_names->old_name; ?></li> </b>
                                                 <?php endforeach; ?>
 
                                             </ol>
@@ -833,7 +836,7 @@
 
                                                         </div>
                                                     </div>
-
+                                                <?php  endif;  ?>
 
                                                         <div class="nk-data data-list">
                                     <div class="data-head">
@@ -1741,7 +1744,7 @@
                                                         <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
                                                         <th class="nk-tb-col nk-tb-col-tools text-right">
                                                         </th>
-                                                    </tr>
+                                                    </tr> 
                                                 </thead>
                                                 <tbody>
                                                     <?php $count = 0;  foreach($data['mandate_traders'] as $mandate_trader) : $count++; ?>

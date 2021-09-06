@@ -126,13 +126,13 @@
                                                                echo ' <span class="tb-status text-success">Active</span>';
                                                             } 
 
-                                                            if ($allpis->mandate_status == 'S') {
+                                                            if ($allpis->mandate_status == 2) {
                                                                echo ' <span class="tb-status text-warning">Suspended</span>';
                                                             }
 
 
-                                                            if ($allpis->mandate_status == 'D') {
-                                                               echo '<span class="tb-status text-danger">Delisted</span>';
+                                                            if ($allpis->mandate_status == 3) {
+                                                               echo '<span class="tb-status text-danger">Revoked</span>';
                                                             }  
 
 

@@ -51,8 +51,8 @@
                                                         <th class="nk-tb-col tb-col-lg"><span class="sub-text">Company Name</span></th>
                                                         <th class="nk-tb-col tb-col-lg"><span class="sub-text">Company Code</span></th>
                                                         <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
-                                                       <!--  <th class="nk-tb-col nk-tb-col-tools text-right">
-                                                        </th> -->
+                                                        <th class="nk-tb-col nk-tb-col-tools text-right">
+                                                        </th>
                                                     </tr>
                                                 </thead> 
                                                 <tbody>
@@ -103,7 +103,7 @@
                                                             ?>
                                                            
                                                         </td>
-                                                       <!--  <td class="nk-tb-col nk-tb-col-tools">
+                                                        <td class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1">
                                                               
                                                                
@@ -126,7 +126,7 @@
                                                                     </div>
                                                                 </li>
                                                             </ul>
-                                                        </td> -->
+                                                        </td>
                                                     </tr><!-- .nk-tb-item  -->
 
 
@@ -147,28 +147,29 @@
                     </div>
                 </div>
 
- <div class="modal fade" tabindex="-1" role="dialog" id="add-trader">
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="exampleModal<?php echo $AllManTrader->id; ?>">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                 <div class="modal-body modal-body-lg">
-                    <h5 class="title">Add Trader</h5>
-                    
+                    <h5 class="title">Edit Trader</h5>
                     <div class="tab-content">
+                        <form method="post" action="<?php echo URLROOT; ?>/accounts/edit_trader/<?php echo $mandate_trader->id; ?>" >
                         <div class="tab-pane active" id="personal">
-                           <form method="post" action="<?php echo URLROOT; ?>/accounts/add_mandatetrader">
                             <div class="row gy-4">
                                 <div class="col-md-12">
                                    <div class="form-group">
                                         <label class="form-label" for="full-name">Full Name</label>
-                                        <input name="fullname" type="text" class="form-control form-control-lg" id="full-name" >
+                                        <input value="<?php echo $mandate_trader->fullname; ?>" name="fullname" type="text" class="form-control form-control-lg" id="full-name" >
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                    <div class="form-group">
                                         <label class="form-label" for="full-name">Email</label>
-                                        <input name="email" type="text" class="form-control form-control-lg" id="full-name" >
+                                        <input value="<?php echo $mandate_trader->email; ?>" name="email" type="text" class="form-control form-control-lg" id="full-name" >
                                     </div>
                                 </div>
 
@@ -176,35 +177,77 @@
                                 <div class="col-md-6">
                                    <div class="form-group">
                                         <label class="form-label" for="full-name">Phone</label>
-                                        <input name="phone" type="number" class="form-control form-control-lg" id="full-name" >
+                                        <input value="<?php echo $mandate_trader->phone; ?>" name="phone" type="number" class="form-control form-control-lg" id="full-name" >
                                     </div>
                                 </div>
 
                                  <div class="col-md-6">
                                    <div class="form-group">
                                         <label class="form-label" for="full-name">Trader Code</label>
-                                        <input name="trader_code" type="text" class="form-control form-control-lg" id="full-name" >
+                                        <input value="<?php echo $mandate_trader->trader_code; ?>" name="trader_code" type="text" class="form-control form-control-lg" id="full-name" >
                                     </div>
                                 </div>
 
 
-                                  <div class="col-md-6">
+                              <div class="col-md-6">
                                    <div class="form-group">
-                                        <label class="form-label" for="full-name">Company</label>
-                                        <select name="mandate_code" data-msg="Required" class="form-control required" required>
-                                                  <?php foreach($data['allmandates'] as $allmandate) : ?>
-                                                <option value="<?php echo $allmandate->mandate_code; ?>"><?php echo $allmandate->company_name; ?></option>
-                                                <?php endforeach; ?>
-                                                                    </select>
-                                        
+                                        <label class="form-label" for="full-name">Chnage Status</label>
+                                        <select name="status" data-msg="Required" class="form-control required" required>
+
+                                        <option value="1">Active</option>  
+                                        <option value="2">Suspended</option>  
+                                        <option value="3">Resigned</option>                          
+                                         </select>
                                     </div>
                                 </div>
+
+                                 <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Designation</label>
+                                        <input name="designation" value="<?php echo $mandate_trader->designation; ?>" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Date Of Birth</label>
+                                        <input name="d_o_b" type="text" value="<?php echo $mandate_trader->d_o_b; ?>" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">State Of Origin</label>
+                                        <input name="state_of_origin" type="text" value="<?php echo $mandate_trader->state_of_origin; ?>" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Nationality</label>
+                                        <input name="nationality" value="<?php echo $mandate_trader->nationality; ?>" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Residential Address</label>
+                                        <textarea name="residential_address" class="form-control"><?php echo $mandate_trader->residential_address; ?></textarea>
+                                      
+                                    </div>
+                                </div>
+
                               
+                                <input type="hidden" value="<?php echo $mandate_trader->id; ?>" name="id" >
+                                <input type="hidden" value="<?php echo $mandate_trader->mandate_code; ?>" name="mandate_code" >
                                
 
-                                
                                
-                                
+ 
+
+
                                 <div class="col-12">
                                     <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                         <li>
@@ -217,11 +260,135 @@
                                     </ul>
                                 </div>
                             </div>
-                            </form>
-                        </div><!-- .tab-pane -->
+                        </div>
+                        </form>
                         
-                    </div><!-- .tab-content -->
-                </div><!-- .modal-body -->
-            </div><!-- .modal-content -->
-        </div><!-- .modal-dialog -->
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+<!-- 
+     <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal<?php echo $AllManTrader->id; ?>">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                <div class="modal-body modal-body-lg">
+                    <h5 class="title">Edit Trader</h5>
+                    <div class="tab-content">
+                        <form method="post" action="<?php echo URLROOT; ?>/accounts/edit_trader/<?php echo $mandate_trader->id; ?>" >
+                        <div class="tab-pane active" id="personal">
+                            <div class="row gy-4">
+                                <div class="col-md-12">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Full Name</label>
+                                        <input value="<?php echo $mandate_trader->fullname; ?>" name="fullname" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Email</label>
+                                        <input value="<?php echo $mandate_trader->email; ?>" name="email" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Phone</label>
+                                        <input value="<?php echo $mandate_trader->phone; ?>" name="phone" type="number" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+                                 <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Trader Code</label>
+                                        <input value="<?php echo $mandate_trader->trader_code; ?>" name="trader_code" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+
+                              <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Chnage Status</label>
+                                        <select name="status" data-msg="Required" class="form-control required" required>
+
+                                        <option value="1">Active</option>  
+                                        <option value="2">Suspended</option>  
+                                        <option value="3">Resigned</option>                          
+                                         </select>
+                                    </div>
+                                </div>
+
+                                 <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Designation</label>
+                                        <input name="designation" value="<?php echo $mandate_trader->designation; ?>" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Date Of Birth</label>
+                                        <input name="d_o_b" type="text" value="<?php echo $mandate_trader->d_o_b; ?>" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">State Of Origin</label>
+                                        <input name="state_of_origin" type="text" value="<?php echo $mandate_trader->state_of_origin; ?>" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Nationality</label>
+                                        <input name="nationality" value="<?php echo $mandate_trader->nationality; ?>" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Residential Address</label>
+                                        <textarea name="residential_address" class="form-control"><?php echo $mandate_trader->residential_address; ?></textarea>
+                                      
+                                    </div>
+                                </div>
+
+                              
+                                <input type="hidden" value="<?php echo $mandate_trader->id; ?>" name="id" >
+                                <input type="hidden" value="<?php echo $mandate_trader->mandate_code; ?>" name="mandate_code" >
+                               
+
+                               
+ 
+
+
+                                <div class="col-12">
+                                    <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                        <li>
+                                            <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+                                            
+                                        </li>
+                                        <li>
+                                            <a href="#" data-dismiss="modal" class="link link-light">Cancel</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ -->

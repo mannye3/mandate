@@ -40,8 +40,7 @@
                                         <?php flash('alert_message'); ?>
                                         <div class="card-inner p-0">
                                           <div class="card-inner">
-                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="true">
-
+                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
                                                 <thead>
                                                     <tr class="nk-tb-item nk-tb-head">
                                                         <th class="nk-tb-col nk-tb-col-check">
@@ -54,12 +53,12 @@
                                                         <th class="nk-tb-col tb-col-mb"><span class="sub-text">Email</span></th>
                                                         <th class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></th>
                                                         <th class="nk-tb-col tb-col-lg"><span class="sub-text">Company Name</span></th>
-                                                        <th class="nk-tb-col tb-col-lg"><span class="sub-text">Company Code</span></th>
+                                                         <th class="nk-tb-col tb-col-lg"><span class="sub-text">Company Code</span></th>
                                                         <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
-                                                       <!--  <th class="nk-tb-col nk-tb-col-tools text-right">
-                                                        </th> -->
-                                                    </tr>
-                                                </thead> 
+                                                        <th class="nk-tb-col nk-tb-col-tools text-right">
+                                                        </th>
+                                                    </tr> 
+                                                </thead>
                                                 <tbody>
                                                     <?php $count = 0;  foreach($data['AllManTraders'] as $AllManTrader) : $count++; ?>
                                                     <tr class="nk-tb-item">
@@ -83,7 +82,7 @@
                                                         </td>
                                                        
                                                         <td class="nk-tb-col tb-col-lg">
-                                                            <span class="tb-amount"><?php echo substr($AllManTrader->company_name,0,200);  ?></span>
+                                                            <span class="tb-amount"><?php echo $AllManTrader->company_name; ?></span>
                                                         </td>
                                                          <td class="nk-tb-col tb-col-lg">
                                                             <span class="tb-amount"><?php echo $AllManTrader->mandate_code; ?></span>
@@ -108,35 +107,218 @@
                                                             ?>
                                                            
                                                         </td>
-                                                       <!--  <td class="nk-tb-col nk-tb-col-tools">
+                                                        <td class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1">
                                                               
-                                                               
+                                                                  <?php  if ($_SESSION['role'] !== 'User') :   ?>
                                                                 <li>
                                                                     <div class="drodown">
                                                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <ul class="link-list-opt no-bdr">
                                                                                
-                                                                                                   <li>
-                                                                    <button class="btn" data-toggle="modal" data-target="#exampleModal<?php echo $AllManTrader->id; ?>">
+                                                                                <li>
+                                                                    <button class="btn" data-toggle="modal" data-target="#exampleModal<?php echo $AllManTrader->trader_code; ?>">
                                                                         <i class="icon ni ni-edit"></i>
                                                                             &nbsp;Edit Trader
                                                                     </button>
                                                           
                                                                      </li>
-                                                                                                  
+
+                                                                                <li>
+                                                                    <button class="btn" data-toggle="modal" data-target="#ChangeFirm<?php echo $AllManTrader->trader_code; ?>">
+                                                                        <i class="icon ni ni-edit"></i>
+                                                                            &nbsp;Change Firm
+                                                                    </button>
+                                                          
+                                                                     </li>  
+                                                                     <?php endif;  ?>                
                                                                             </ul>
                                                                         </div>
                                                                     </div>
                                                                 </li>
+                                                            
                                                             </ul>
-                                                        </td> -->
+                                                        </td>
                                                     </tr><!-- .nk-tb-item  -->
 
+                                         <div class="modal fade" tabindex="-1" role="dialog" id="ChangeFirm<?php echo $AllManTrader->trader_code; ?>">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                <div class="modal-body modal-body-lg">
+                    <h5 class="title">Change Firm</h5>
+                    <div class="tab-content">
+                        <form method="post" action="<?php echo URLROOT; ?>/accounts/change_mandate_trader/<?php echo $AllManTrader->id; ?>" >
+                        <div class="tab-pane active" id="personal">
+                            <div class="row gy-4">
+                                <div class="col-md-12">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Select Firm</label>
+                                        <select name="mandate_code" data-msg="Required" class="form-control required" required>
+                                                  <?php foreach($data['allmandates'] as $allmandate) : ?>
+                                                <option value="<?php echo $allmandate->mandate_code; ?>"><?php echo $allmandate->company_name; ?></option>
+                                                <?php endforeach; ?>
+                                                                    </select>
+                                    </div>
+                                </div>
+                               
+                                <input type="hidden" value="<?php echo $AllManTrader->id; ?>" name="id" >
+                                <input type="hidden" value="<?php echo $AllManTrader->fullname; ?>" name="fullname" >
+                                <input type="hidden" value="<?php echo $AllManTrader->mandate_code; ?>" name="mandate_code2" >
+                               
+                               
 
-                                                    
+                               
+ 
 
+
+                                <div class="col-12">
+                                    <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                        <li>
+                                            <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+                                            
+                                        </li>
+                                        <li>
+                                            <a href="#" data-dismiss="modal" class="link link-light">Cancel</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+     <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal<?php echo $AllManTrader->trader_code; ?>">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                <div class="modal-body modal-body-lg">
+                    <h5 class="title">Edit Trader</h5>
+                    <div class="tab-content">
+                        <form method="post" action="<?php echo URLROOT; ?>/accounts/edit_trader/<?php echo $AllManTrader->id; ?>" >
+                        <div class="tab-pane active" id="personal">
+                            <div class="row gy-4">
+                                <div class="col-md-12">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Full Name</label>
+                                        <input value="<?php echo $AllManTrader->fullname; ?>" name="fullname" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Email</label>
+                                        <input value="<?php echo $AllManTrader->email; ?>" name="email" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Phone</label>
+                                        <input value="<?php echo $AllManTrader->phone; ?>" name="phone" type="number" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+                                 <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Trader Code</label>
+                                        <input value="<?php echo $AllManTrader->trader_code; ?>" name="trader_code" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+
+                              <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Chnage Status</label>
+                                        <select name="status" data-msg="Required" class="form-control required" required>
+
+                                        <option value="1">Active</option>  
+                                        <option value="2">Suspended</option>  
+                                        <option value="3">Resigned</option>                          
+                                         </select>
+                                    </div>
+                                </div>
+
+                                 <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Designation</label>
+                                        <input name="designation" value="<?php echo $AllManTrader->designation; ?>" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Date Of Birth</label>
+                                        <input name="d_o_b" type="text" value="<?php echo $AllManTrader->d_o_b; ?>" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">State Of Origin</label>
+                                        <input name="state_of_origin" type="text" value="<?php echo $AllManTrader->state_of_origin; ?>" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Nationality</label>
+                                        <input name="nationality" value="<?php echo $AllManTrader->nationality; ?>" type="text" class="form-control form-control-lg" id="full-name" >
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                   <div class="form-group">
+                                        <label class="form-label" for="full-name">Residential Address</label>
+                                        <textarea name="residential_address" class="form-control"><?php echo $AllManTrader->residential_address; ?></textarea>
+                                      
+                                    </div>
+                                </div>
+
+                              
+                                <input type="hidden" value="<?php echo $AllManTrader->id; ?>" name="id" >
+                                <input type="hidden" value="<?php echo $AllManTrader->mandate_code; ?>" name="mandate_code" >
+                               
+
+                               
+ 
+
+
+                                <div class="col-12">
+                                    <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                        <li>
+                                            <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+                                            
+                                        </li>
+                                        <li>
+                                            <a href="#" data-dismiss="modal" class="link link-light">Cancel</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
                                                   
                                                     <?php endforeach; ?>
@@ -152,81 +334,4 @@
                     </div>
                 </div>
 
- <div class="modal fade" tabindex="-1" role="dialog" id="add-trader">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                <div class="modal-body modal-body-lg">
-                    <h5 class="title">Add Trader</h5>
-                    
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="personal">
-                           <form method="post" action="<?php echo URLROOT; ?>/accounts/add_mandatetrader">
-                            <div class="row gy-4">
-                                <div class="col-md-12">
-                                   <div class="form-group">
-                                        <label class="form-label" for="full-name">Full Name</label>
-                                        <input name="fullname" type="text" class="form-control form-control-lg" id="full-name" >
-                                    </div>
-                                </div>
 
-                                <div class="col-md-6">
-                                   <div class="form-group">
-                                        <label class="form-label" for="full-name">Email</label>
-                                        <input name="email" type="text" class="form-control form-control-lg" id="full-name" >
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-6">
-                                   <div class="form-group">
-                                        <label class="form-label" for="full-name">Phone</label>
-                                        <input name="phone" type="number" class="form-control form-control-lg" id="full-name" >
-                                    </div>
-                                </div>
-
-                                 <div class="col-md-6">
-                                   <div class="form-group">
-                                        <label class="form-label" for="full-name">Trader Code</label>
-                                        <input name="trader_code" type="text" class="form-control form-control-lg" id="full-name" >
-                                    </div>
-                                </div>
-
-
-                                  <div class="col-md-6">
-                                   <div class="form-group">
-                                        <label class="form-label" for="full-name">Company</label>
-                                        <select name="mandate_code" data-msg="Required" class="form-control required" required>
-                                                  <?php foreach($data['allmandates'] as $allmandate) : ?>
-                                                <option value="<?php echo $allmandate->mandate_code; ?>"><?php echo $allmandate->company_name; ?></option>
-                                                <?php endforeach; ?>
-                                                                    </select>
-                                        
-                                    </div>
-                                </div>
-                              
-                               
-
-                                
-                               
-                                
-                                <div class="col-12">
-                                    <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
-                                        <li>
-                                            <button type="submit" class="btn btn-lg btn-primary">Submit</button>
-                                            
-                                        </li>
-                                        <li>
-                                            <a href="#" data-dismiss="modal" class="link link-light">Cancel</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            </form>
-                        </div><!-- .tab-pane -->
-                        
-                    </div><!-- .tab-content -->
-                </div><!-- .modal-body -->
-            </div><!-- .modal-content -->
-        </div><!-- .modal-dialog -->
-    </div>

@@ -68,9 +68,10 @@
                                                 <tbody>
                                                  <?php  $count = 0; foreach($data['allmandates'] as $allmandates) :  $count++;
 
-                                                       
-
+                
                                                              ?>
+
+
 
 
                                              
@@ -84,14 +85,14 @@
                                                             <div class="user-card">
                                                               
                                                                 <div class="user-info">
-                                                                    <a href="<?php echo URLROOT; ?>/accounts/mandate/<?php echo $allmandates->mandate_code;  ?>"> <span class="tb-lead wrapword123"><?php echo $allmandates->company_name;  ?><span class="dot dot-success d-md-none ml-1"></span></span></a>
+                                                                    <a href="<?php echo URLROOT; ?>/accounts/mandate/<?php echo $allmandates->mandate_code;  ?>"><?php echo $allmandates->company_name;  ?><span class="dot dot-success d-md-none ml-1"></span></span></a>
                                                                    
                                                                 </div>
                                                             </div>
                                                         </td>
                                                        
                                                         <td class="" style="">
-                                                        <span style="width: 1000px;" ><?php echo substr($allmandates->category,0,200);?></span>
+                                                       <?php echo $allmandates->category;?></span>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-md">
                                                             <span><?php echo substr($allmandates->phone,0,200);?></span>
@@ -107,12 +108,12 @@
                                                                echo ' <span class="tb-status text-success">Active</span>';
                                                             } 
 
-                                                            if ($allmandates->mandate_status == 'S') {
+                                                            if ($allmandates->mandate_status == '2') {
                                                                echo ' <span class="tb-status text-warning">Suspended</span>';
                                                             }
 
 
-                                                            if ($allmandates->mandate_status == 'D') {
+                                                            if ($allmandates->mandate_status == '3') {
                                                                echo '<span class="tb-status text-danger">Delisted</span>';
                                                             }  
 
@@ -152,36 +153,3 @@
 
 
 
-<style type="text/css">
-    .wrapword123 {
-    white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    white-space: pre-wrap;       /* css-3 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
-    white-space: -webkit-pre-wrap; /* Newer versions of Chrome/Safari*/
-    word-break: break-all;
-    white-space: normal;
-
-    
-}
-</style>
-
-
-
-                    <?php
-// foreach($categories as $category)
-//     {
-       
-//         foreach($category->templates as $template){
-         
-//             foreach($template->tags as $tags){
-               
-//             }
-//             foreach($template->procedures as $proceadures){
-               
-//             }
-//         }
-//     }
-
-                    ?>

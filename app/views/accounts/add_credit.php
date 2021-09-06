@@ -1,20 +1,5 @@
  <div class="nk-content nk-content-fluid">
                    
-<div>
-
-    <select id="selector" onchange="yesnoCheck(this);">
-        <option value="select">__Select__</option>
-        <option value="aadhar">Aadhaar Card</option>
-        <option value="pan">Pan Card</option>
-        <option value="pass">Passport</option>
-    </select>
-    <label for="selector">Select ID Proof</label>
-</div>
-
-
-
-
-
 
 
                     <div class="container-xl wide-lg">
@@ -100,14 +85,14 @@
                                                     </div> 
                                                                     </div>
                                                                     <br>
-                                                                    <div id="pc" style="display: none;">
+                                                                   <!--  <div id="pc" style="display: none;">
                                                                         <label for="pan">Amount</label> 
                                                                         <input type="text" id="pan" name="pan" class="form-control form-control-lg" />
                                                                     </div>
                                                                     <div id="ps" style="display: none;">
                                                                         <label for="pass">Enter Passport No.</label> 
                                                                         <input type="text" id="pass" name="pass" /><br />
-                                                                    </div>
+                                                                    </div> -->
 
                                                                      
 
@@ -249,7 +234,7 @@
 
 
 
-                        <div class="modal" tabindex="-1" role="dialog" id="AFAT">
+                        <!-- <div class="modal" tabindex="-1" role="dialog" id="AFAT">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
@@ -329,7 +314,7 @@
         </div>
     </div>
 
-
+ -->
 
 
 

@@ -1509,6 +1509,9 @@ public function getCatList(){
 
 
 
+
+
+
     public function getAllRevokeMandate($revoked_mandates){
       $this->db->query('SELECT  * FROM mandates WHERE mandate_status =:revoked_mandates  ORDER BY id DESC');
       $this->db->bind(':revoked_mandates', $revoked_mandates);
@@ -1838,7 +1841,7 @@ public function getMandateByCode($mandate_code){
 
 
  public function getTraders(){
-      $this->db->query(' SELECT traders.fullname, traders.trader_code, traders.email, traders.phone, traders.residential_address,traders.designation,traders.d_o_b,traders.state_of_origin,traders.nationality,traders.status, mandates.company_name, mandates.mandate_code
+      $this->db->query(' SELECT traders.id,traders.fullname, traders.trader_code, traders.email, traders.phone, traders.residential_address,traders.designation,traders.d_o_b,traders.state_of_origin,traders.nationality,traders.status, mandates.company_name, mandates.mandate_code
        FROM `traders` 
         INNER JOIN mandates ON traders.mandate_code = mandates.mandate_code ORDER BY ceated_at  DESC ');
      
@@ -2154,7 +2157,7 @@ public function getMandateActivies($mandate_code){
 
 
 
-public function getAllMandateNames($mandate_code){
+    public function getAllMandateNames($mandate_code){
       $this->db->query('SELECT  * FROM mandate_name_change  WHERE mandate_code = :mandate_code');
 
       $this->db->bind(':mandate_code', $mandate_code);
@@ -2163,6 +2166,19 @@ public function getAllMandateNames($mandate_code){
       $results = $this->db->resultSet();
 
       return $results;
+    }
+
+
+
+     public function getAllMandateFirmNames(){
+      $this->db->query('SELECT  * FROM mandate_name_change');
+
+     
+
+   
+     $row = $this->db->single();
+
+      return $row;
     }
 
 
@@ -3481,6 +3497,9 @@ public function getPaymentRecipt($mandate_code,$select_year){
 
       return $row;
     }
+
+
+
 
 
 

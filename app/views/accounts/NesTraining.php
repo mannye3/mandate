@@ -12,7 +12,7 @@
                                             <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
-                                                     <?php  if ($_SESSION['role'] !== 'User') :   ?>
+                                                     <?php  if ($_SESSION['role'] !== 'User' AND $_SESSION['department'] == 'IT'  || $_SESSION['department'] == 'Operations' ) :   ?>
                                                     <li class="nk-block-tools-opt">
                                                         <div class="drodown">
                                                             <a href="#add-plan" data-toggle="modal" class="btn btn-primary" data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
