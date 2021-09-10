@@ -5,10 +5,10 @@
                                 <div class="nk-block-between">
 
                                     <div class="nk-block-head-content">
-                                        <h3 class="nk-block-title page-title">Activity Logs For <?php echo $data['mandate_info']->company_name; ?></h3>
+                                        <h3 class="nk-block-title page-title">Movement Logs For<?php echo $data['trader_details']->fullname; ?></h3>
 
                                           <div class="nk-block-head-content" style="margin: 0px 0px 0px 1000px ">
-                                        <a href="<?php echo URLROOT; ?>/accounts/mandate/<?php echo $data['mandate_info']->mandate_code; ?>" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                        <a href="<?php echo $_SERVER['HTTP_REFERER'] ?>" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
                                         <a href="html/user-list-regular.html" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                                     </div>
                                         
@@ -31,7 +31,9 @@
                                                         </th>
                                                       
                                                        
-                                                        <th class="nk-tb-col tb-col-lg"><span class="sub-text">Mandate Code</span></th>
+                                                        <th class="nk-tb-col tb-col-lg"><span class="sub-text">Name</span></th>
+
+                                                        
 
                                                         <th class="nk-tb-col tb-col-lg"><span class="sub-text">Activity</span></th>
                                                         <th class="nk-tb-col tb-col-lg"><span class="sub-text">Action By</span></th>
@@ -46,7 +48,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                     <?php  $count = 0; foreach($data['All_Activies'] as $All_Activity) :  $count++; ?>
+                                                     <?php  $count = 0; foreach($data['All_Movements'] as $All_Movement) :  $count++; ?>
                                                     <tr class="nk-tb-item">
                                                          <td class="nk-tb-col nk-tb-col-check">
                                                             <div class="custom-control custom-control-sm custom-checkbox notext">
@@ -56,26 +58,26 @@
                                                        
                                                       
                                                         <td class="nk-tb-col tb-col-lg">
-                                                            <span><?php echo $All_Activity->mandate_code; ?></span>
+                                                            <span><?php echo $All_Movement->fullname; ?></span>
                                                         </td>
 
                                                          <td class="nk-tb-col tb-col-lg">
-                                                            <?php echo $All_Activity->activities; ?>
+                                                            <?php echo $All_Movement->trader_movement; ?>
 
                                                                 
                                                         </td>
 
                                                         <td class="nk-tb-col tb-col-lg">
-                                                            <span><?php echo $All_Activity->action_by; ?></span>
+                                                            <span><?php echo $All_Movement->action_by; ?></span>
                                                         </td>
 
                                                         <td class="nk-tb-col tb-col-lg">
-                                                            <span><?php echo $All_Activity->department; ?></span>
+                                                            <span><?php echo $All_Movement->department; ?></span>
                                                         </td>
 
 
                                                         <td class="nk-tb-col tb-col-lg">
-                                                            <span><?php echo $All_Activity->created_at; ?></span>
+                                                            <span><?php echo $All_Movement->created_at; ?></span>
                                                         </td>
 
                                                      

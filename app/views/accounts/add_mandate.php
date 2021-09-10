@@ -55,12 +55,12 @@
                                                                 <label class="form-label" for="fw-last-name">Category</label>
                                                                 <div class="form-control-wrap">
                                                                     <select name="category" data-msg="Required" class="form-control required" required>
-                                                                    <?php foreach($data['load_cat'] as $load_cat) : ?>
-                                                <option value="<?php echo $load_cat->cat_title; ?>"><?php echo $load_cat->cat_title; ?></option>
-                                                <?php endforeach; ?>
+                                                                                                <?php foreach($data['load_cat'] as $load_cat) : ?>
+                                                                            <option value="<?php echo $load_cat->cat_title; ?>"><?php echo $load_cat->cat_title; ?></option>
+                                                                            <?php endforeach; ?>
                                                                     </select>
 
-                                                                   <input type="hidden" name="mandate_status" value="Ok">
+                                                                   <input type="hidden" name="mandate_status" value="1">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -84,7 +84,7 @@
                                                             <div class="form-group">
                                                                 <label class="form-label" for="fw-mobile-number">Website</label>
                                                                 <div class="form-control-wrap">
-                                                                    <input name="website" type="text" data-msg="Required" class="form-control required" id="fw-mobile-number" name="fw-mobile-number" required>
+                                                                    <input name="website" type="text"  class="form-control" id="fw-mobile-number" name="fw-mobile-number">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -279,7 +279,7 @@
                                                                 <label class="form-label" for="fw-nationality">Office Address</label>
                                                                 <div class="form-control-wrap">
                                                                     
-                                                            <textarea name="address" class="form-control required"></textarea>
+                                                            <textarea name="address" class="form-control"></textarea>
                                                                         
                                                                     
                                                                 </div>

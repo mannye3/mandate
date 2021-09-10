@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="card-body">
                                 <?php flash('alert_message'); ?>                                  
-                                    <form action="<?php echo URLROOT; ?>/accounts/send_mail2" method="post">
+                                    <form action="<?php echo URLROOT; ?>/accounts/send_mail" method="post">
                                        <!--  <div class="form-group row">
                                             <label for="emailTo" class="col-sm-2 col-form-label">To</label>
                                             <div class="col-sm-10">

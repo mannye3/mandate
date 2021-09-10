@@ -62,7 +62,7 @@
                                     </div>
                                 </div><!-- .nk-block-head -->
                                 <div class="nk-block-head-content" style="margin: 0px 0px 0px 1000px ">
-                                        <a href="<?php echo URLROOT; ?>/accounts/mandates" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                        <a href="<?php echo $_SERVER['HTTP_REFERER'] ?>" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
                                         <a href="html/user-list-regular.html" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                                     </div>
                                 <div class="nk-block nk-block-lg">
@@ -949,7 +949,7 @@
                                     </div><!-- .data-item -->
 
 
-                                     <?php if ($_SESSION['role'] == 'Admin') : ?>
+                                  
 
                                     <div class="nk-data data-list">
                                     <div class="data-head">
@@ -963,6 +963,7 @@
                                         </div>
                                         <div class="data-col data-col-end"></div>
                                     </div><!-- .data-item -->
+                                       <?php if ($_SESSION['role'] == 'Admin') : ?>
                                     <div class="data-item">
                                         <div class="data-col">
                                             <span class="data-label">Bank Branch</span>
@@ -985,9 +986,10 @@
                                             <span class="data-value"><?php echo $data['mandate_info']->settlement_bank_account_name; ?></span>
                                         </div>
                                         <div class="data-col data-col-end"></div>
-                                    </div><!-- .data-item -->         
+                                    </div><!-- .data-item -->  
+                                        <?php endif; ?>       
                                 </div><!-- .nk-data -->
-                                     <?php endif; ?>
+                                 
                                     
                                    
                                     
@@ -1262,25 +1264,119 @@
                                            
                                         </ul>
                                                     <div class="nk-block-content">
-                                                      <div class="user-account-main" style="margin: -70px 0px 0px 900px">
-                                                                    <h6 class="overline-title-alt">Available Balance</h6>
-                                                                    <div class="user-balance">N<?php echo number_format($data['allaccamount_credit']->amount) ?>
-
-                                                                      </div>
-                                                                   
-                                                                </div>
+                                                    
 
 
                                     </div>
                                     <br>
-                                    <br>
-                                    <br>
+                                  
+                                    <div class="row g-gs">
+                                            <div class="col-md-3">
+                                            <div class="card card-bordered card-full">
+                                                <div class="card-inner">
+                                                    <div class="card-title-group align-start mb-0">
+                                                        <div class="card-title">
+                                                            <h6 class="overline-title-alt">Available Balance</h6>
+                                                        </div>
+                                                        <div class="card-tools">
+                                                            <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Available Balance"></em>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-amount">
+                                                        <span class="amount"> <b class="user-balance">₦<?php echo number_format($data['allaccamount_credit']->amount)  ?></b> <span class="currency currency-usd"></span>
+                                                        </span>
+                                                      
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                            <div class="col-md-3">
+                                            <div class="card card-bordered card-full">
+                                                <div class="card-inner">
+                                                    <div class="card-title-group align-start mb-0">
+                                                        <div class="card-title">
+                                                            <h6 class="overline-title-alt">Total Bank Payment</h6>
+                                                        </div>
+                                                        <div class="card-tools">
+                                                            <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title=""></em>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-amount">
+                                                        <span class="amount"> <b style="color: black;">₦<?php 
+                                                     
 
 
-                           
+                                                        echo number_format($data['mandate_accounts_bank']->total_acc_amount) ?></b> <span class="currency currency-usd"></span>
+                                                        </span>
+                                                      
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+
+
+                                        <div class="col-md-3">
+                                            <div class="card card-bordered card-full">
+                                                <div class="card-inner">
+                                                    <div class="card-title-group align-start mb-0">
+                                                        <div class="card-title">
+                                                            <h6 class="overline-title-alt">Total Paid <?php echo date('Y'); ?></h6>
+                                                        </div>
+                                                        <div class="card-tools">
+                                                            <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title=""></em>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-amount">
+                                                        <span class="amount"> <b style="color: black;">₦<?php 
+                                                     $all_sumyear =   $data['mandate_accounts_current_year']->TotalAmountPaidYear;
+                                                        $all_sumyeardiscount =  $data['mandate_accounts_current_yeardiscount']->TotalAmountPaidYeardiscount;
+                                                        $allAmountYear =  $all_sumyear + $all_sumyeardiscount;
+
+
+                                                        echo number_format($allAmountYear) ?></b> <span class="currency currency-usd"></span>
+                                                        </span>
+                                                      
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+
+
+                                         <div class="col-md-3">
+                                            <div class="card card-bordered card-full">
+                                                <div class="card-inner">
+                                                    <div class="card-title-group align-start mb-0">
+                                                        <div class="card-title">
+                                                            <h6 class="overline-title-alt">Total Paid</h6>
+                                                        </div>
+                                                        <div class="card-tools">
+                                                            <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title=""></em>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-amount">
+                                                        <span class="amount"> <b style="color: black;">₦<?php 
+                                                     $total_all_sum =   $data['mandate_accounts_payment']->TotalAmountPaid;
+                                                        $total_all_sum_iscount =  $data['mandate_accounts_payment_discount']->TotalAmountPaid_discount;
+                                                        $allPaidAmount =  $total_all_sum + $total_all_sum_iscount;
+
+
+                                                        echo number_format($allPaidAmount) ?></b> <span class="currency currency-usd"></span>
+                                                        </span>
+                                                      
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+
+                                    </div>
 
 
 
+                            <br><br>
                            <div class="nk-block">
 
                          
@@ -1352,11 +1448,17 @@
                                                             </div>
                                                         </td>
                                                          <td class="nk-tb-col tb-col-mb" data-order="35040.34">
-                                                            <span class="tb-amount">₦<?php echo number_format($mandate_account->amount * $mandate_account->qty); ?></span>
+                                                            <span class="tb-amount">₦<?php echo number_format($mandate_account->amount); ?></span>
                                                         </td>
 
                                                          <td class="nk-tb-col tb-col-mb" data-order="35040.34">
-                                                            <span class="tb-amount">₦<?php echo number_format($mandate_account->discount_amount); ?>
+                                                           
+
+                                                             <?php  if($mandate_account->discount !== "" ) : ?>
+                                                                     <span class="tb-amount">₦<?php echo number_format($mandate_account->discount_amount); ?>
+                                                                     <?php endif ?>
+
+
                                                                   <?php  if($mandate_account->discount == 2 ) : ?>
                                                                           (10%)
                                                                      <?php endif ?>
@@ -1756,7 +1858,7 @@
                                                             <div class="user-card">
                                                               
                                                                 <div class="user-info">
-                                                                    <span class="tb-lead"><?php echo $mandate_trader->fullname; ?><span class="dot dot-success d-md-none ml-1"></span></span>
+                                                                   <a href="#" data-toggle="modal" data-target="#tranxDetails<?php echo $mandate_trader->trader_code; ?>"> <span class="tb-lead"><?php echo $mandate_trader->fullname; ?><span class="dot dot-success d-md-none ml-1"></span></span> </a>
                                                                     <p><?php echo $mandate_trader->trader_code; ?></p>
                                                                 </div>
                                                             </div>
@@ -1816,6 +1918,15 @@
                                                                     </button>
                                                           
                                                                      </li>  
+
+                                                                        <li>
+                                                                   <button class="btn">
+                                                                        <i class="icon ni ni-edit"></i>
+                                                                            &nbsp; <a href="<?php echo URLROOT; ?>/accounts/traders_movement/<?php echo $mandate_trader->trader_code; ?>">History</a>
+                                                                    </button>
+                                                                
+                                                          
+                                                                     </li>  
                                                                      <?php endif;  ?>                
                                                                             </ul>
                                                                         </div>
@@ -1849,6 +1960,7 @@
                                
                                 <input type="hidden" value="<?php echo $mandate_trader->id; ?>" name="id" >
                                 <input type="hidden" value="<?php echo $mandate_trader->fullname; ?>" name="fullname" >
+                                 <input type="hidden" value="<?php echo $mandate_trader->trader_code; ?>" name="trader_code" >
                                 <input type="hidden" value="<?php echo $mandate_trader->mandate_code; ?>" name="mandate_code2" >
                                
                                
@@ -2003,6 +2115,74 @@
             </div>
         </div>
     </div>
+
+     <div class="modal fade" tabindex="-1" id="tranxDetails<?php echo $mandate_trader->trader_code; ?>">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+                <div class="modal-body modal-body-md">
+                    <div class="nk-modal-head mb-3 mb-sm-5">
+                        <h4 class="nk-modal-title title"><?php echo $mandate_trader->fullname; ?><h4>
+                    </div>
+                    <div class="nk-tnx-details">
+                        
+                        <div class="nk-modal-head mt-sm-5 mt-4 mb-4">
+                          
+                        </div>
+                        <div class="row gy-3">
+                            <div class="col-lg-6">
+                                <span class="sub-text">EMAIL</span>
+                                <span class="caption-text"><?php echo $mandate_trader->email; ?></span>
+                            </div>
+                            <div class="col-lg-6">
+                                <span class="sub-text">PHONE</span>
+                                <span class="caption-text text-break"><?php echo $mandate_trader->phone; ?></span>
+                            </div>
+                            <div class="col-lg-6">
+                                <span class="sub-text">TRADER CODE</span>
+                                <span class="caption-text"><?php echo $mandate_trader->trader_code; ?>
+                                   </span>
+                            </div>
+                            <div class="col-lg-6">
+                                <span class="sub-text">COMPANY</span>
+                                <span class="caption-text"> <?php echo $data['mandate_info']->company_name; ?></span>
+                            </div>
+
+                             <div class="col-lg-6">
+                                <span class="sub-text">DESIGNATION</span>
+                                <span class="caption-text"> <?php echo $mandate_trader->designation; ?></span>
+                            </div>
+
+                             <div class="col-lg-6">
+                                <span class="sub-text">DATE OF BIRTH</span>
+                                <span class="caption-text"> <?php echo $mandate_trader->d_o_b; ?></span>
+                            </div>
+
+                             <div class="col-lg-6">
+                                <span class="sub-text">STATE OF ORIGIN</span>
+                                <span class="caption-text"> <?php echo $mandate_trader->state_of_origin; ?></span>
+                            </div>
+                             <div class="col-lg-6">
+                                <span class="sub-text">NATIONALITY</span>
+                                <span class="caption-text"> <?php echo $mandate_trader->nationality; ?></span>
+                            </div>
+                             <div class="col-lg-12">
+                                <span class="sub-text">RESIDENCE ADDRESS</span>
+                                <span class="caption-text"> <?php echo $mandate_trader->residential_address; ?></span>
+                            </div>
+
+                        </div><!-- .row -->
+                        
+                        
+                           
+                            
+                        </div><!-- .row -->
+                    </div><!-- .nk-tnx-details -->
+                </div><!-- .modal-body -->
+            </div><!-- .modal-content -->
+        </div><!-- .modal-dialog -->
 
                                                   
                                                     <?php endforeach; ?>

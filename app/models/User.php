@@ -167,13 +167,11 @@ public function DeleteResetToken($data){
 
       $row = $this->db->single();
 
-      // Check row
-      if($this->db->rowCount() > 0){
-        return true;
-      } else {
-        return false;
-      }
+  $row = $this->db->single();
+
+      return $row;
     }
+
 
 
 

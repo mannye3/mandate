@@ -111,7 +111,7 @@
                                                           
                                                                      </li>
                       
-                                                                            <form action="<?php echo URLROOT; ?>/admins/delete_user/<?php echo $All_Users->id; ?>" method="POST">
+                                                                            <form action="<?php echo URLROOT; ?>/accounts/delete_user/<?php echo $All_Users->id; ?>" method="POST">
                                                                     <input type="hidden" name="id" id="p_id" value="<?php echo $allcate->id; ?>">
                                                                     <button class="btn" name="archive" type="submit" onclick="archiveFunction()">
                                                                         <i class="icon ni ni-na"></i>

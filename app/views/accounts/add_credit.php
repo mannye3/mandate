@@ -85,14 +85,16 @@
                                                     </div> 
                                                                     </div>
                                                                     <br>
-                                                                   <!--  <div id="pc" style="display: none;">
+                                                                    <div id="pc" style="display: none;">
                                                                         <label for="pan">Amount</label> 
-                                                                        <input type="text" id="pan" name="pan" class="form-control form-control-lg" />
+                                                                        <input type="number" id="pan" name="amount" class="form-control form-control-lg" />
+                                                                        <br>
+                                                                        <label for="pan">Description</label> 
+                                                                          <input type="text" id="pan" name="description" class="form-control form-control-lg" />
+                                                                       
                                                                     </div>
-                                                                    <div id="ps" style="display: none;">
-                                                                        <label for="pass">Enter Passport No.</label> 
-                                                                        <input type="text" id="pass" name="pass" /><br />
-                                                                    </div> -->
+
+                                                                  
 
                                                                      
 
@@ -124,14 +126,14 @@
                                                              <div class="form-group">
 
                                  
-                                  <br>
-                                <input type="radio" id="male" name="discount" value="1">
-                                <label for="male">5%</label><br>
-                                <input type="radio" id="female" name="discount" value="2">
-                                <label for="female">10%</label><br>
-                                
-                             
-                                    </div>
+                                              <br>
+                                            <input type="radio" id="male" name="discount" value="1">
+                                            <label for="male">5%</label><br>
+                                            <input type="radio" id="female" name="discount" value="2">
+                                            <label for="female">10%</label><br>
+                                            
+                                         
+                                                </div>
                                                             </div>
                                                            
                                                            
@@ -396,7 +398,7 @@ function yesnoCheck(that)
     {
         document.getElementById("adc").style.display = "none";
     }
-    if (that.value == "OUTSTANDING")
+    if (that.value == "SERVICEFEE")
     {
         document.getElementById("pc").style.display = "block";
     }

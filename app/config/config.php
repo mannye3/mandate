@@ -5,6 +5,13 @@
   define('DB_PASS', '');
   define('DB_NAME', 'e_mandate');
 
+
+  // // DB Params
+  // define('DB_HOST', 'nasdotcng.com');
+  // define('DB_USER', 'notcsadm_mandate');
+  // define('DB_PASS', 'i(AGauy^X,e;');
+  // define('DB_NAME', 'notcsadm_mandate_2');
+
   // App Root
   define('APPROOT', dirname(dirname(__FILE__)));
   // URL Root

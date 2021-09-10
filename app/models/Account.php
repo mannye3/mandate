@@ -491,6 +491,21 @@ public function getCatList(){
 
 
 
+  public function getReceipts(){
+      $this->db->query('SELECT *  FROM receipt_records ORDER BY id DESC');
+      //$this->db->bind(':ref_id', $ref_id);
+
+      
+
+    $results = $this->db->resultSet();
+
+    return $results;
+
+ 
+  }
+
+
+
  public function getCart($mandate_code){
       $this->db->query('SELECT *  FROM mandate_cart  WHERE mandate_code =  :mandate_code ORDER BY id DESC');
      $this->db->bind(':mandate_code', $mandate_code);
@@ -1105,7 +1120,7 @@ public function getCatList(){
 
 
      public function UpdateMandateTrader($data){
-      $this->db->query('UPDATE traders SET status = :status, fullname = :fullname, phone = :phone, email =:email, trader_code = :trader_code   WHERE id = :id');
+      $this->db->query('UPDATE traders SET status = :status, fullname = :fullname, phone = :phone, email =:email, trader_code = :trader_code , residential_address = :residential_address , designation = :designation , d_o_b = :d_o_b , state_of_origin = :state_of_origin , nationality = :nationality   WHERE id = :id');
 
        // Bind Values      
        $this->db->bind(':id', $data['id']);
@@ -1114,6 +1129,13 @@ public function getCatList(){
       $this->db->bind(':email', $data['email']);
       $this->db->bind(':phone', $data['phone']);
       $this->db->bind(':trader_code', $data['trader_code']);
+      $this->db->bind(':residential_address', $data['residential_address']);
+      $this->db->bind(':designation', $data['designation']);
+      $this->db->bind(':d_o_b', $data['d_o_b']);
+      $this->db->bind(':state_of_origin', $data['state_of_origin']);
+      $this->db->bind(':nationality', $data['nationality']);
+
+
 
       
      
@@ -1497,9 +1519,9 @@ public function getCatList(){
 
 
 
-    public function getAllActiveMandate($revoked_mandates){
-      $this->db->query('SELECT * FROM mandates WHERE mandate_status !=:revoked_mandates  ORDER BY id DESC');
-      $this->db->bind(':revoked_mandates', $revoked_mandates);
+    public function getAllActiveMandate(){
+      $this->db->query('SELECT * FROM mandates WHERE mandate_status = 1 OR mandate_status = 2 ORDER BY id DESC');
+     
       
 
       $results = $this->db->resultSet();
@@ -1512,9 +1534,9 @@ public function getCatList(){
 
 
 
-    public function getAllRevokeMandate($revoked_mandates){
-      $this->db->query('SELECT  * FROM mandates WHERE mandate_status =:revoked_mandates  ORDER BY id DESC');
-      $this->db->bind(':revoked_mandates', $revoked_mandates);
+    public function getAllRevokeMandate(){
+      $this->db->query('SELECT  * FROM mandates WHERE mandate_status = 3  ORDER BY id DESC');
+    
       
 
       $results = $this->db->resultSet();
@@ -1683,7 +1705,7 @@ public function getMandateByCode($mandate_code){
 
 
     public function getAccountMandateByCode($mandate_code){
-      $this->db->query('SELECT mandates_fees.fee_title, mandates_fees.amount, mandates_fees.renewal_status, mandates_fees.fee_code,
+      $this->db->query('SELECT mandate_payment.fee_title, mandate_payment.amount, mandates_fees.renewal_status, mandates_fees.fee_code,
        mandate_payment.mandate_code, mandate_payment.issued_date, mandate_payment.due_date,mandate_payment.issued_year, mandate_payment.discount, mandate_payment.discount_amount, mandate_payment.qty, mandate_payment.created_at
        FROM `mandates_fees` 
         INNER JOIN mandate_payment ON mandates_fees.fee_code = mandate_payment.fee_code
@@ -1697,6 +1719,102 @@ public function getMandateByCode($mandate_code){
 
       return $results;
     }
+
+
+
+
+
+
+
+     public function  getAccountMandateByCodeCurrent_Year($mandate_code,$current_year){
+      $this->db->query('SELECT SUM(amount) AS TotalAmountPaidYear FROM mandate_payment WHERE  issued_year =:current_year AND mandate_code = :mandate_code   AND discount_amount = "" ');
+
+        $this->db->bind(':current_year', $current_year);
+         $this->db->bind(':mandate_code', $mandate_code);
+
+     
+      $row = $this->db->single();
+
+      return $row;
+    }
+
+
+
+      public function  getAccountMandateByCodeCurrent_Yeardiscount($mandate_code,$current_year){
+      $this->db->query('SELECT SUM(discount_amount) AS TotalAmountPaidYeardiscount FROM mandate_payment WHERE  issued_year =:current_year AND mandate_code = :mandate_code   AND discount_amount != "" ');
+
+        $this->db->bind(':current_year', $current_year);
+         $this->db->bind(':mandate_code', $mandate_code);
+
+     
+      $row = $this->db->single();
+
+      return $row;
+    }
+
+
+         public function  getAccountMandatePayment($mandate_code){
+      $this->db->query('SELECT SUM(amount) AS TotalAmountPaid FROM mandate_payment WHERE   mandate_code = :mandate_code   AND discount_amount = "" ');
+
+       
+         $this->db->bind(':mandate_code', $mandate_code);
+
+     
+      $row = $this->db->single();
+
+      return $row;
+    }
+
+
+
+      public function  getAccountMandatePaymentDiscount($mandate_code){
+      $this->db->query('SELECT SUM(discount_amount) AS TotalAmountPaid_discount FROM mandate_payment WHERE   mandate_code = :mandate_code   AND discount_amount != "" ');
+
+       
+         $this->db->bind(':mandate_code', $mandate_code);
+
+     
+      $row = $this->db->single();
+
+      return $row;
+    }
+
+
+
+
+
+
+
+     public function  getAccountRecByYear($mandate_code,$select_year){
+      $this->db->query('SELECT SUM(amount) AS TotalAmountPaidYear FROM mandate_payment WHERE  issued_year =:select_year AND mandate_code = :mandate_code   AND discount_amount = "" ');
+
+        $this->db->bind(':select_year', $select_year);
+         $this->db->bind(':mandate_code', $mandate_code);
+
+     
+      $row = $this->db->single();
+
+      return $row;
+    }
+
+
+
+      public function  getAccountRecByYearDiscount($mandate_code,$select_year){
+      $this->db->query('SELECT SUM(discount_amount) AS TotalAmountPaidYeardiscount FROM mandate_payment WHERE  issued_year =:select_year AND mandate_code = :mandate_code   AND discount_amount != "" ');
+
+        $this->db->bind(':select_year', $select_year);
+         $this->db->bind(':mandate_code', $mandate_code);
+
+     
+      $row = $this->db->single();
+
+      return $row;
+    }
+
+
+
+
+    
 
 
 
@@ -1750,6 +1868,19 @@ public function getMandateByCode($mandate_code){
       return $results;
     }
 
+
+
+    public function getTraderByCode($trader_code){
+      $this->db->query('SELECT * FROM traders WHERE trader_code = :trader_code');
+
+      $this->db->bind(':trader_code', $trader_code);
+
+      
+        
+      $row = $this->db->single();
+
+      return $row;
+    }
 
 
     public function getTraderMandateByid($id){
@@ -2085,7 +2216,7 @@ public function getLogsByemail($email){
 
 
 
-public function getMandateActivies($mandate_code){
+   public function getMandateActivies($mandate_code){
       $this->db->query('SELECT *  FROM mandate_activities WHERE mandate_code = :mandate_code  ORDER BY id DESC');
       $this->db->bind(':mandate_code', $mandate_code);
 
@@ -2097,6 +2228,24 @@ public function getMandateActivies($mandate_code){
 
  
   }
+
+
+
+
+
+   public function getMandateMovement($trader_code){
+      $this->db->query('SELECT *  FROM traders_movement WHERE trader_code = :trader_code  ORDER BY id DESC');
+      $this->db->bind(':trader_code', $trader_code);
+
+      
+
+    $results = $this->db->resultSet();
+
+    return $results;
+
+ 
+  }
+
 
 
 
@@ -2112,6 +2261,36 @@ public function getMandateActivies($mandate_code){
       $this->db->bind(':action_by', $data['name']);
       $this->db->bind(':department', $data['department']);
       $this->db->bind(':activities', $activities);
+ 
+      
+      
+
+      // Execute
+      if($this->db->execute()){
+        return true;
+      }
+      else{
+        return false;
+      }           
+            
+    }
+
+
+
+
+
+    //Add New Mandate
+      public function AddLogTraderMovement($data,$trader_movement){
+      
+      $this->db->query('INSERT INTO traders_movement (fullname, trader_code,  trader_movement, action_by, department) VALUES(:fullname, :trader_code, :trader_movement, :action_by, :department)');
+    
+      // Bind Values      
+      
+      $this->db->bind(':fullname', $data['fullname']);
+      $this->db->bind(':action_by', $data['name']);
+      $this->db->bind(':trader_code', $data['trader_code']);
+      $this->db->bind(':department', $data['department']);
+      $this->db->bind(':trader_movement', $trader_movement);
  
       
       
@@ -2212,7 +2391,18 @@ public function getMandateActivies($mandate_code){
     public function AllSumTraining(){
       $this->db->query(' SELECT SUM(amount) AS TotalAmountNT FROM nes_training   ');
      
- $row = $this->db->single();
+     $row = $this->db->single();
+
+      return $row;
+    }
+
+
+
+
+     public function AllSumServiceFee(){
+      $this->db->query(' SELECT SUM(amount) AS TotalServiceFees FROM mandate_payment WHERE  fee_code = "SERVICEFEE"   ');
+     
+      $row = $this->db->single();
 
       return $row;
     }
@@ -2963,7 +3153,7 @@ $results = $this->db->resultSet();
 
 
 
-public function getPaymentRecipt($mandate_code,$select_year){
+    public function getPaymentRecipt($mandate_code,$select_year){
       $this->db->query(' SELECT SUM(amount) AS TotalPAYMENT FROM mandate_payment WHERE mandate_code = :mandate_code AND issued_year = :select_year   ');
 
 
@@ -2974,6 +3164,22 @@ public function getPaymentRecipt($mandate_code,$select_year){
 
       return $row;
     }
+
+
+    public function getReceiptByCodeSingle($receipt_number){
+      $this->db->query('SELECT * FROM receipt_records WHERE receipt_number = :receipt_number ');
+
+
+         
+  $this->db->bind(':receipt_number', $receipt_number);
+     
+  $row = $this->db->single();
+
+      return $row;
+    }
+
+
+
 
     public function getAccountMandateByCode12($mandate_code,$select_year){
       $this->db->query('SELECT mandates_fees.fee_title, mandates_fees.amount, mandates_fees.renewal_status, mandates_fees.fee_code,
@@ -3758,6 +3964,32 @@ public function getPaymentRecipt($mandate_code,$select_year){
         return false;
       }
     }
+
+
+
+   
+
+
+
+          public function getReceiptByCode($receipt_number,$mandate_code){
+      $this->db->query('SELECT mandate_payment.fee_title, mandate_payment.discount, mandate_payment.amount, mandate_payment.discount_amount, receipt_records.select_year, receipt_records.receipt_number,
+       receipt_records.receipt_date
+       FROM `receipt_records` 
+        INNER JOIN mandate_payment ON receipt_records.mandate_code = mandate_payment.mandate_code
+          WHERE   receipt_records.receipt_number = :receipt_number AND mandate_payment.mandate_code = :mandate_code');
+
+
+      
+        $this->db->bind(':mandate_code', $mandate_code);
+        $this->db->bind(':receipt_number', $receipt_number);
+
+      
+       $results = $this->db->resultSet();
+
+      return $results;
+    }
+
+
 
 
 

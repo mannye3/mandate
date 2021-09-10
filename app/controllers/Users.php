@@ -244,6 +244,8 @@
         // Check for user/email
         if($this->userModel->findUserByEmail($data['email'])){
           // User found
+          $user_dl = $this->userModel->findUserByEmail($data['email']);
+          $name =  $user_dl->name; 
         } else {
           // User not found
           $data['email_err'] = 'No user found for '.$data['email'].'';
@@ -256,7 +258,7 @@
            if($this->userModel->ResetToken($data)){
             if($this->userModel->forgetPassword($data['email'])){
               
-                  if(PasswordResetEmail($data)){   
+                  if(PasswordResetEmail($data,$name)){   
                
                flash('alert_message', 'Check your email for the reset link');
                 redirect('users/forget_password');  
@@ -322,7 +324,9 @@
               // Validated
          $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
           // Validated'
-         if(PasswordReseted($data)){    
+          $user_dl = $this->userModel->findUserByEmail($data['email']);
+          $name =  $user_dl->name; 
+         if(PasswordReseted($data,$name)){    
               
            if($this->userModel->DeleteResetToken($data)){  
           if($this->userModel->updateUserPassword($data)){

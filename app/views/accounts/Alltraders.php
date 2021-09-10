@@ -69,7 +69,7 @@
                                                             <div class="user-card">
                                                               
                                                                 <div class="user-info">
-                                                                    <span class="tb-lead"><?php echo $AllManTrader->fullname; ?><span class="dot dot-success d-md-none ml-1"></span></span>
+                                                                  <a href="#" data-toggle="modal" data-target="#tranxDetails<?php echo $AllManTrader->trader_code; ?>">  <span class="tb-lead"><?php echo $AllManTrader->fullname; ?><span class="dot dot-success d-md-none ml-1"></span></span> </a>
                                                                     <p><?php echo $AllManTrader->trader_code; ?></p>
                                                                 </div>
                                                             </div>
@@ -125,13 +125,13 @@
                                                           
                                                                      </li>
 
-                                                                                <li>
+                                                                         <!--        <li>
                                                                     <button class="btn" data-toggle="modal" data-target="#ChangeFirm<?php echo $AllManTrader->trader_code; ?>">
                                                                         <i class="icon ni ni-edit"></i>
                                                                             &nbsp;Change Firm
                                                                     </button>
                                                           
-                                                                     </li>  
+                                                                     </li>   -->
                                                                      <?php endif;  ?>                
                                                                             </ul>
                                                                         </div>
@@ -319,6 +319,78 @@
             </div>
         </div>
     </div>
+
+
+
+      <div class="modal fade" tabindex="-1" id="tranxDetails<?php echo $AllManTrader->trader_code; ?>">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+                <div class="modal-body modal-body-md">
+                    <div class="nk-modal-head mb-3 mb-sm-5">
+                        <h4 class="nk-modal-title title"><?php echo $AllManTrader->fullname; ?><h4>
+                    </div>
+                    <div class="nk-tnx-details">
+                        
+                        <div class="nk-modal-head mt-sm-5 mt-4 mb-4">
+                          
+                        </div>
+                        <div class="row gy-3">
+                            <div class="col-lg-6">
+                                <span class="sub-text">EMAIL</span>
+                                <span class="caption-text"><?php echo $AllManTrader->email; ?></span>
+                            </div>
+                            <div class="col-lg-6">
+                                <span class="sub-text">PHONE</span>
+                                <span class="caption-text text-break"><?php echo $AllManTrader->phone; ?></span>
+                            </div>
+                            <div class="col-lg-6">
+                                <span class="sub-text">TRADER CODE</span>
+                                <span class="caption-text"><?php echo $AllManTrader->trader_code; ?>
+                                   </span>
+                            </div>
+                            <div class="col-lg-6">
+                                <span class="sub-text">COMPANY</span>
+                                <span class="caption-text"> <?php echo $AllManTrader->company_name; ?></span>
+                            </div>
+
+                             <div class="col-lg-6">
+                                <span class="sub-text">DESIGNATION</span>
+                                <span class="caption-text"> <?php echo $AllManTrader->designation; ?></span>
+                            </div>
+
+                             <div class="col-lg-6">
+                                <span class="sub-text">DATE OF BIRTH</span>
+                                <span class="caption-text"> <?php echo $AllManTrader->d_o_b; ?></span>
+                            </div>
+
+                             <div class="col-lg-6">
+                                <span class="sub-text">STATE OF ORIGIN</span>
+                                <span class="caption-text"> <?php echo $AllManTrader->state_of_origin; ?></span>
+                            </div>
+                             <div class="col-lg-6">
+                                <span class="sub-text">NATIONALITY</span>
+                                <span class="caption-text"> <?php echo $AllManTrader->nationality; ?></span>
+                            </div>
+                             <div class="col-lg-12">
+                                <span class="sub-text">RESIDENCE ADDRESS</span>
+                                <span class="caption-text"> <?php echo $AllManTrader->residential_address; ?></span>
+                            </div>
+
+                        </div><!-- .row -->
+                        
+                        
+                           
+                            
+                        </div><!-- .row -->
+                    </div><!-- .nk-tnx-details -->
+                </div><!-- .modal-body -->
+            </div><!-- .modal-content -->
+        </div><!-- .modal-dialog -->
+    </div><!-- .modal -->
+    <!-- Modal Default -->
 
                                                   
                                                     <?php endforeach; ?>

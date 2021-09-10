@@ -362,6 +362,49 @@
                                             </div><!-- .card -->
                                         </div><!-- .col -->
                                         
+
+
+
+
+                                        <div class="col-md-4">
+                                            <div class="card card-bordered card-full">
+                                                <div class="card-inner">
+                                                    <div class="card-title-group align-start mb-0">
+                                                        <div class="card-title">
+                                                            <h6 class="subtitle">SERVICE FEES</h6>
+                                                        </div>
+                                                        <div class="card-tools">
+                                                            <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Total Data Portal Fee"></em>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-amount">
+                                                        <span class="amount"> <b style="color: black;">₦<?php 
+
+                                                                     
+                                                                      $SERFEE = $data['totalservicefee']->TotalServiceFees;
+
+                                                                    
+
+
+
+
+                                                        echo number_format($SERFEE) ?></b> <span class="currency currency-usd"></span>
+                                                        </span>
+                                                      
+                                                    </div>
+                                                    <div class="invest-data">
+                                                        <div class="invest-data-amount g-2">
+                                                            <div class="invest-data-history">
+                                                                
+                                                            </div>
+                                                           
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        
                                       <div class="col-md-4">
                                             <div class="card card-bordered  card-full">
                                                 <div class="card-inner">
